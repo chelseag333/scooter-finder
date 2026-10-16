@@ -265,13 +265,16 @@ function recommend(a){
 function reasons(s,a){
   var r = [];
   r.push("Carries riders up to " + s.maxLabel + ".");
-  if (a.access==="steps") r.push("Light enough to lift over steps (" + s.weight + ").");
+  if (a.access==="steps" && s.liftable) r.push("Light enough to lift over steps (" + s.weight + ").");
+  if (a.access==="steps" && !s.liftable) r.push("Please note: at " + s.weight + " it can't be lifted over steps, so you'll need step-free access.");
   if (a.access==="small" && s.id==="H6") r.push("At 560 mm wide it's our narrowest heavy-duty scooter, so it suits small lifts.");
   if (a.access==="small" && s.liftable) r.push("Compact and foldable, so it fits small lifts easily.");
   if (a.transport==="blackcab") r.push("Rides straight up a black cab's ramp, no folding needed.");
-  if (a.transport==="uber") r.push(s.liftable ? "Folds to fit an Uber or minicab boot." : "Comes apart into pieces to fit an Uber or minicab boot.");
-  if (a.transport==="train") r.push(s.id==="SH" ? "Our lightest scooter, the easiest to carry on and off trains." : "Folds small enough to take on a train.");
-  if (a.transport==="boot") r.push(s.liftable ? "Folds to fit most car boots." : "Comes apart into pieces to fit a car boot.");
+  if ((a.transport==="uber"||a.transport==="boot") && !s.boot) r.push("Please note: it doesn't fit in an Uber or car boot. A black cab with a ramp can take it.");
+  if (a.transport==="uber" && s.boot) r.push(s.liftable ? "Folds to fit an Uber or minicab boot." : "Comes apart into pieces to fit an Uber or minicab boot.");
+  if (a.transport==="train" && !s.cab) r.push("Please note: it's too heavy to carry on and off trains.");
+  if (a.transport==="train" && s.cab) r.push(s.id==="SH" ? "Our lightest scooter, the easiest to carry on and off trains." : "Folds small enough to take on a train.");
+  if (a.transport==="boot" && s.boot) r.push(s.liftable ? "Folds to fit most car boots." : "Comes apart into pieces to fit a car boot.");
   if (a.distance==="full") r.push("Range of " + s.range.replace(/^Up to/,"up to") + " for a full day out.");
   else if (a.distance==="half") r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", plenty for half a day.");
   else r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", ideal for shorter trips.");

@@ -127,9 +127,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.1 kg"], ["Fold", "Automatic, locks shut"]],
       tags: { light: 3, fold: 2, tube: 3, toddler: 2, cab: 2 } },
     JOOLZ: { id: "JOOLZ", name: "Joolz Aer2", url: "/products/joolz-aer-2-stroller", kg: 22,
-      best: "Flying: folds small enough for an overhead locker",
+      best: "Luxury ultra-compact fold, easy to steer with one hand",
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.5 kg"], ["Fold", "One hand, one second"]],
-      tags: { fly: 5, light: 2, fold: 2, tube: 2, newborn: 1 } },
+      tags: { light: 2, fold: 3, tube: 3, cab: 2, newborn: 1 } },
     LAIKA: { id: "LAIKA", name: "Maxi-Cosi Laika2", url: "/products/maxi-cosi-laika2-stroller", kg: 22,
       best: "Buses, the Tube and stairs, comfortable from birth",
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "7.45 kg"], ["Fold", "One hand, with shoulder strap"]],
@@ -147,9 +147,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
       specs: [["Child weight", "Birth to 22 kg"], ["Wheels", "Large, puncture-resistant, 360°"], ["Seat", "Spacious and deep"]],
       tags: { park: 4, toddler: 2, nap: 1, cab: 1 } },
     COSATTO: { id: "COSATTO", name: "Cosatto Woosh City", url: "/products/cosatto-woosh-city", kg: 25,
-      best: "Bigger toddlers: our highest weight limit, and cabin-bag size",
+      best: "Bigger toddlers: our highest stroller weight limit",
       specs: [["Child weight", "Birth to 25 kg"], ["Stroller weight", "8.65 kg"], ["Folded", "55.5 x 45.5 x 25 cm"]],
-      tags: { toddler: 4, fly: 3, nap: 1, cab: 1 } },
+      tags: { toddler: 4, nap: 1, cab: 2, fold: 1 } },
     INDY: { id: "INDY", name: "Kinderkraft Indy 3", url: "/products/kinderkraft-indy-3", kg: 15,
       best: "A simple, light stroller for babies and young toddlers",
       specs: [["Child weight", "Birth to 15 kg"], ["Stroller weight", "7.3 kg"], ["Fold", "One hand"]],
@@ -162,7 +162,10 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
       specs: [["Children", "2, from 6 months"], ["Per seat", "Up to 20 kg"], ["Wheels", "All-terrain with suspension"]] },
     X2: { id: "X2", name: "Wonderfold X2 Wagon", url: "/products/wonderfold-x2-wagon", kg: 20,
       best: "Push or pull two children, with room for bags",
-      specs: [["Children", "2"], ["Handles", "Push and pull"], ["Canopy", "Removable, UV protection"]] }
+      specs: [["Children", "2"], ["Handles", "Push and pull"], ["Canopy", "Removable, UV protection"]] },
+    L4: { id: "L4", name: "Wonderfold L4 Wagon", url: "/products/wonderfold-l4-wagon", kg: 45,
+      best: "Up to four children, or bigger children who are too heavy for a stroller",
+      specs: [["Children", "Up to 4, from 6 months"], ["Per bench", "Up to 45 kg (2 benches)"], ["Total load", "Up to 97 kg"]] }
   };
   var SINGLES = ["ARIES", "JOOLZ", "LAIKA", "LARA", "APINO", "GRANDE", "COSATTO", "INDY"];
 
@@ -170,7 +173,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
     { id: "kids", short: "Children", title: "How many children will ride?",
       options: [
         { v: 1, ic: "👶", t: "One child" },
-        { v: 2, ic: "👧👦", t: "Two children" }
+        { v: 2, ic: "👧👦", t: "Two children" },
+        { v: 3, ic: "👨‍👩‍👧‍👦", t: "Three children" },
+        { v: 4, ic: "🎉", t: "Four children" }
       ] },
     { id: "age", short: "Child", title: "How old is your child?", hint: "If you know their weight, use that. Every stroller has a maximum child weight.", showIf: function (a) { return a.kids === 1; },
       options: [
@@ -178,30 +183,37 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
         { v: "baby", ic: "🧸", t: "6 months to about 3 years", s: "Up to 15 kg (33 lb)" },
         { v: "toddler", ic: "🚸", t: "About 3 to 4 years", s: "15 to 22 kg (33 to 48 lb)" },
         { v: "big", ic: "🎒", t: "Bigger child", s: "22 to 25 kg (48 to 55 lb)" },
-        { v: "over", ic: "📏", t: "Over 25 kg", s: "Over 55 lb" }
+        { v: "over", ic: "📏", t: "Older child, 25 to 45 kg", s: "55 to 99 lb: a wagon seats bigger children" },
+        { v: "huge", ic: "🧍", t: "Over 45 kg", s: "Over 99 lb" }
       ] },
     { id: "twoage", short: "Children", title: "How old are they?", hint: "Think about the youngest and the heaviest child.", showIf: function (a) { return a.kids === 2; },
       options: [
         { v: "baby", ic: "🍼", t: "The youngest is under 6 months" },
         { v: "small", ic: "🧸", t: "Both over 6 months, and both under 15 kg" },
         { v: "bigger", ic: "🚸", t: "Both over 6 months, one is 15 to 20 kg" },
-        { v: "over", ic: "📏", t: "One is over 20 kg" }
+        { v: "over", ic: "📏", t: "Both over 6 months, one is 20 to 45 kg" },
+        { v: "huge", ic: "🧍", t: "One is over 45 kg" }
       ] },
-    { id: "move", short: "Getting around", title: "How will you mostly get around London?", showIf: function (a) { return a.kids === 1 && a.age !== "over"; },
+    { id: "groupage", short: "Children", title: "How old are they?", hint: "Think about the youngest and the heaviest child.", showIf: function (a) { return a.kids >= 3; },
+      options: [
+        { v: "baby", ic: "🍼", t: "The youngest is under 6 months" },
+        { v: "ok", ic: "🧸", t: "All over 6 months, and all under 45 kg" },
+        { v: "huge", ic: "🧍", t: "One is over 45 kg" }
+      ] },
+    { id: "move", short: "Getting around", title: "How will you mostly get around London?", showIf: function (a) { return a.kids === 1 && a.age !== "over" && a.age !== "huge"; },
       options: [
         { v: "tube", ic: "🚇", t: "The Tube, buses and stairs" },
         { v: "cab", ic: "🚕", t: "Taxis, Ubers and car boots" },
-        { v: "park", ic: "🌳", t: "Walking, parks and Winter Wonderland" },
-        { v: "fly", ic: "✈️", t: "I'm flying and want to take it on the plane" }
+        { v: "park", ic: "🌳", t: "Walking, parks and Winter Wonderland" }
       ] },
-    { id: "pri", short: "Most important", title: "What matters most to you?", showIf: function (a) { return a.kids === 1 && a.age !== "over"; },
+    { id: "pri", short: "Most important", title: "What matters most to you?", showIf: function (a) { return a.kids === 1 && a.age !== "over" && a.age !== "huge"; },
       options: [
         { v: "light", ic: "🪶", t: "As light as possible", s: "Easy to carry up stairs" },
         { v: "fold", ic: "⚡", t: "The easiest fold", s: "Folds quickly, ideally by itself" },
         { v: "nap", ic: "😴", t: "Comfortable naps", s: "Lie-flat seat and recline" },
         { v: "toddler", ic: "📐", t: "Room for a growing toddler", s: "A bigger seat" }
       ] },
-    { id: "where", short: "Getting around", title: "Where will you spend most of your time?", showIf: function (a) { return a.kids === 2 && a.twoage !== "over"; },
+    { id: "where", short: "Getting around", title: "Where will you spend most of your time?", showIf: function (a) { return a.kids === 2 && a.twoage !== "over" && a.twoage !== "huge"; },
       options: [
         { v: "city", ic: "🏙️", t: "City streets, the Tube and shops", s: "Needs to fit through doorways" },
         { v: "park", ic: "🌳", t: "Parks, zoos and Winter Wonderland", s: "Room for bags too" }
@@ -216,15 +228,25 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
     toddler: "Roomy seat for a growing toddler",
     park: "Big wheels for parks and uneven paths",
     cab: "Folds small for taxis and car boots",
-    fly: "Small enough to take on the plane",
     newborn: "Comfortable from birth in the lie-flat position"
   };
   var KG = { newborn: 9, baby: 15, toddler: 22, big: 25 };
 
   function decide(a) {
     var note = "", why = [], alts = [], main;
+    var tooBig = { main: null, noneTitle: "Let's find the right option together", noneText: "Our strollers and wagons take children up to 45 kg. For an older child, a wheelchair may work better, or message us and we'll help.", alts: [],
+      cross: { tool: "wheelchair", text: "Need something for an older child or teenager? Our wheelchairs take users up to 130 kg.", label: "Find my wheelchair" } };
+    if (a.kids >= 3) {
+      if (a.groupage === "huge") return tooBig;
+      if (a.groupage === "baby") return { main: null, noneTitle: "Let's plan this together", noneText: "Our L4 wagon seats up to four children from 6 months. For a baby under 6 months as well, we'll suggest a combination, such as the L4 plus a lie-flat stroller.",
+        alts: [{ p: P.L4, why: "For the older children: seats up to 4, from 6 months" }, { p: P.LAIKA, why: "For the baby: lie-flat and comfortable from birth" }] };
+      return { main: P.L4, why: ["Seats up to four children from 6 months, on two removable benches", "Each bench takes up to 45 kg, so it suits older children too", "Side door so children can hop in and out", "5-point harnesses, UPF 50 canopy and all-terrain XL wheels"],
+        note: "The L4 is a big wagon. It's best for parks, pavements and attractions rather than the Tube.", alts: [] };
+    }
     if (a.kids === 2) {
-      if (a.twoage === "over") return { main: null, noneTitle: "Let's find the right option together", noneText: "Our double strollers and wagons take children up to 20 kg per seat. Message us and we'll suggest a combination.", alts: [] };
+      if (a.twoage === "huge") return tooBig;
+      if (a.twoage === "over") return { main: P.L4, why: ["Each bench takes up to 45 kg, so it suits older children", "Two removable benches, with raised seats for a better view", "Side door so children can hop in and out", "All-terrain XL wheels for parks and pavements"],
+        note: "The L4 is a big wagon. It's best for parks, pavements and attractions rather than the Tube.", alts: [{ p: P.W2, why: "Smaller wagon, if both children are under 20 kg" }] };
       if (a.twoage === "baby") {
         main = P.DOUBLE;
         why = ["Suitable from birth, with two independently reclining seats", "Slim 69 cm frame fits through standard doorways and Tube aisles", "Just 10.5 kg"];
@@ -247,7 +269,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
       return { main: main, why: why, note: note, alts: alts };
     }
 
-    if (a.age === "over") return { main: null, noneTitle: "Let's find the right option together", noneText: "Our strollers take children up to 25 kg. Message us and we'll help you find something that works.", alts: [] };
+    if (a.age === "huge") return tooBig;
+    if (a.age === "over") return { main: P.L4, why: ["Each bench takes up to 45 kg, so it carries a child too big for a stroller", "Raised, removable seats and a side door to hop in and out", "All-terrain XL wheels for parks and long days out"],
+      note: "Our strollers take children up to 25 kg, so for an older child we recommend a wagon.", alts: [] };
 
     var kg = KG[a.age];
     var scored = SINGLES.map(function (id) {
@@ -265,7 +289,6 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
     [a.move, a.pri].forEach(function (k) { if (main.tags[k] && WHY[k] && why.indexOf(WHY[k]) < 0) why.push(WHY[k]); });
     if (a.age === "newborn" && main.tags.newborn) why.push(WHY.newborn);
     why.push("Takes children up to " + main.kg + " kg");
-    if (a.move === "fly" && main.id !== "JOOLZ" && main.id !== "COSATTO") note = "Check your airline's cabin rules before you fly.";
     if (a.age === "newborn") note = "Carrycots and car seats aren't included with our strollers. Ask us if you need one.";
     if (a.age === "big") note = "The Cosatto Woosh City is the only stroller we rent that takes children over 22 kg.";
     alts = scored.slice(1, 3).map(function (x) { return { p: x.p, why: x.p.best }; });
@@ -275,7 +298,7 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
   window.FINDER = {
     tool: "stroller",
     title: "Which stroller should I hire?",
-    intro: "Answer up to four quick questions and we'll match you to the right stroller, double stroller or wagon for your London trip.",
+    intro: "Answer up to four quick questions and we'll match you to the right stroller, double stroller or wagon for up to four children on your London trip.",
     points: ["Every stroller comes with a rain cover", "Takes about a minute", "Delivered to your hotel or Airbnb, often within the hour"],
     questions: questions,
     decide: decide,
