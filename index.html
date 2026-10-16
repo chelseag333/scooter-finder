@@ -266,7 +266,7 @@ function reasons(s,a){
   var r = [];
   r.push("Carries riders up to " + s.maxLabel + ".");
   if (a.access==="steps" && s.liftable) r.push("Light enough to lift over steps (" + s.weight + ").");
-  if (a.access==="steps" && !s.liftable) r.push("Please note: at " + s.weight + " it can't be lifted over steps, so you'll need step-free access.");
+  if (a.access==="steps" && !s.liftable) r.push("Please note: heavy-duty scooters can't be lifted over steps, so you'll need step-free access.");
   if (a.access==="small" && s.id==="H6") r.push("At 560 mm wide it's our narrowest heavy-duty scooter, so it suits small lifts.");
   if (a.access==="small" && s.liftable) r.push("Compact and foldable, so it fits small lifts easily.");
   if (a.transport==="blackcab") r.push("Rides straight up a black cab's ramp, no folding needed.");
