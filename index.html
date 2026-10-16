@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scooter Finder | Chelsea's Rentals</title>
+<meta name="description" content="Answer a few quick questions to find the right mobility scooter to hire in Central London.">
+<meta name="theme-color" content="#2D235C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<style>
+:root{
+  --ink:#1d1838; --muted:#5d5878; --brand:#2D235C; --brand-2:#43368a;
+  --soft:#f3f1fa; --line:#e3dff0; --card:#fff; --bg:#faf9fd;
+  --accent:#e85d75; --ok:#1f7a53; --warn:#9a5b00; --warn-bg:#fff5e5;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.45}
+body.embedded{background:var(--card)}
+a{color:var(--brand)}
+button{font:inherit;color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 32px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--brand);font-weight:700;font-size:15px}
+.brand img{height:34px;width:auto}
+.close{border:0;background:var(--soft);width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none}
+.close:hover{background:var(--line)}
+.close svg{width:18px;height:18px}
+.back-site{font-size:14px;color:var(--muted);text-decoration:none}
+.back-site:hover{color:var(--brand)}
+body.embedded .back-site{display:none}
+body:not(.embedded) .close{display:none}
+body.embedded .top{position:sticky;top:0;z-index:5;background:var(--card);margin:-20px -16px 18px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.brand img{max-width:180px}
+
+.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.progress span{display:block;height:100%;background:var(--brand);width:0;transition:width .3s ease}
+.step-label{font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between}
+
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;color:var(--brand);margin:0}
+h1{font-size:clamp(26px,6vw,34px);line-height:1.15}
+h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
+.lede{color:var(--muted);margin:10px 0 22px;font-size:16px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+.opt:hover{border-color:var(--brand-2);background:var(--soft)}
+.opt:active{transform:scale(.995)}
+.opt:focus-visible{outline:3px solid #b8aef0;outline-offset:2px}
+.opt.sel{border-color:var(--brand);background:var(--soft)}
+.opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px}
+.opt.sel .ic{background:#fff}
+.opt b{display:block;font-weight:600;font-size:16px}
+.opt small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;min-height:40px}
+.link-btn{background:none;border:0;color:var(--muted);cursor:pointer;padding:8px 0;font-size:15px}
+.link-btn:hover{color:var(--brand)}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:14px 22px;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer}
+.primary:hover{background:var(--brand-2)}
+.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand);border:1.5px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer}
+.secondary:hover{border-color:var(--brand)}
+
+.intro-points{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+.intro-points li{display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.intro-points li::before{content:"✓";color:var(--ok);font-weight:700}
+
+.result-top{background:var(--brand);color:#fff;border-radius:var(--radius);padding:22px 20px;margin-bottom:14px}
+.result-top .eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.8;font-weight:600}
+.result-top h2{color:#fff;font-size:clamp(24px,6vw,30px);margin:6px 0 4px}
+.result-top .best{opacity:.9;font-size:15px}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 18px}
+.spec{background:rgba(255,255,255,.12);border-radius:12px;padding:10px}
+.spec small{display:block;font-size:12px;opacity:.8}
+.spec b{font-size:14.5px;font-weight:600}
+.result-top .primary{background:#fff;color:var(--brand);width:100%}
+.result-top .primary:hover{background:var(--soft)}
+.why{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px}
+.why h3,.alts h3{font-size:15px;margin:0 0 10px;color:var(--brand)}
+.why ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:14px}
+.alts{margin-bottom:16px}
+.alt{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
+.alt:hover{border-color:var(--brand-2)}
+.alt b{display:block;font-size:15px}
+.alt small{color:var(--muted);font-size:13px}
+.alt .arrow{color:var(--brand);font-weight:700;flex:none}
+.help{background:var(--soft);border-radius:var(--radius);padding:16px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.help p{margin:0;font-size:14.5px;flex:1 1 220px}
+.wa{background:#1f8f4e;color:#fff;border:0}
+.wa:hover{background:#177a41}
+.answers{font-size:13.5px;color:var(--muted);margin:16px 0 0}
+.answers summary{cursor:pointer}
+.answers ul{padding-left:18px}
+.fade{animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:420px){.specs{grid-template-columns:1fr 1fr}.spec:last-child{grid-column:span 2}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="https://chelseas-rentals.com/" target="_top">
+      <img src="https://content.booqablecdn.com/uploads/41ef1003c136793071aa08151a652d61/company/logo/23a5f7fc-0284-419c-b094-61d1be3204ab/8dd8ead0-0c98-44b1-a37e-630121f3c322(2).png" alt="Chelsea's Rentals">
+    </a>
+    <a class="back-site" href="https://chelseas-rentals.com/pages/which-mobility-scooter-should-i-hire">← Back to Chelsea's Rentals</a>
+    <button class="close" type="button" aria-label="Close scooter finder" data-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+/* ============================================================
+   Chelsea's Rentals – Scooter Finder
+   Data source: chelseas-rentals.com/pages/which-mobility-scooter-should-i-hire
+   To change the fleet, edit SCOOTERS. To change the logic, edit
+   QUESTIONS (who is asked what), passes() (hard rules) and score()
+   (the ranking sequence). Ties are broken by SCOOTERS order.
+   ============================================================ */
+var SITE = "https://chelseas-rentals.com";
+var WHATSAPP = "https://wa.me/447880152221?text=" + encodeURIComponent("Hi, I used your scooter finder and would like some help choosing a scooter.");
+
+var SCOOTERS = [
+  { id:"SH",  name:"Ultralight Superhandy 13-mile", url:SITE+"/products/superhandy-passport",
+    maxKg:124.7, maxLabel:"124.7 kg (275 lb)", range:"6.5–13 mi", weight:"About 16 kg (35 lb)",
+    best:"Taxis, trains, hotels with stairs", liftable:true, cab:true, boot:true, narrow:true },
+  { id:"UC",  name:"Ultralight Carbon 15-mile", url:SITE+"/products/ultralight-carbon-scooter-with-15-mile-24-km-battery-range",
+    maxKg:120, maxLabel:"120 kg (265 lb)", range:"15–30 mi", weight:"18 kg (40 lb)",
+    best:"Taxis, car boots, long days", liftable:true, cab:true, boot:true, narrow:true },
+  { id:"U30", name:"Ultralight 30-mile", url:SITE+"/products/ultralight-scooter-with-our-best-30-mile-49-km-battery-range",
+    maxKg:120, maxLabel:"120 kg (265 lb)", range:"Up to 30 mi", weight:"20 kg (44 lb)",
+    best:"Longest days of sightseeing", liftable:true, cab:true, boot:true, narrow:true },
+  { id:"L6",  name:"Lightweight 6-mile", url:SITE+"/products/lightweight-scooter-strider-st1",
+    maxKg:115, maxLabel:"115 kg (254 lb)", range:"6 mi", weight:"40 kg (88 lb), 5 pieces",
+    best:"Short trips, car boot", liftable:false, cab:false, boot:true, narrow:true },
+  { id:"L75", name:"Lightweight 7.5-mile", url:SITE+"/products/lightweight-scooter-roma-virgo",
+    maxKg:136, maxLabel:"136 kg (300 lb)", range:"7.5–10 mi", weight:"42 kg (93 lb), 4 pieces",
+    best:"Short trips, users up to 136 kg", liftable:false, cab:false, boot:true, narrow:true },
+  { id:"HC2", name:"Heavyweight Class 2 (4 mph)", url:SITE+"/products/heavyweight-scooter-pride-colt-twin",
+    maxKg:159, maxLabel:"159 kg (351 lb)", range:"Up to 15.5 mi", weight:"62.5 kg (138 lb)*",
+    best:"Comfort, extra legroom", liftable:false, cab:false, boot:false, narrow:false },
+  { id:"H6",  name:"Heavyweight 6 mph", url:SITE+"/products/heavyweight-scooter-with-15-mile-25-km-battery-and-6mph-speed",
+    maxKg:181, maxLabel:"181 kg (399 lb)", range:"Up to 21 mi", weight:"68 kg (150 lb)*, 560 mm wide",
+    best:"All-day comfort, narrower lifts", liftable:false, cab:false, boot:false, narrow:true },
+  { id:"H8",  name:"Heavyweight 8 mph", url:SITE+"/products/heavyweight-class-3-scooter-15-mile-battery-range-8mph-speed",
+    maxKg:159, maxLabel:"159 kg (351 lb)", range:"14–17 mi", weight:"75 kg (165 lb), 657 mm wide",
+    best:"Smoothest ride, longer distances", liftable:false, cab:false, boot:false, narrow:false },
+  { id:"H20", name:"Heavyweight 20-mile", url:SITE+"/products/heavyweight-class-3-20-miles-between-charges-8mph-speed",
+    maxKg:181, maxLabel:"181 kg (399 lb)", range:"20–30 mi", weight:"Large chassis, dismantles",
+    best:"Bigger users, longest range", liftable:false, cab:false, boot:false, narrow:false, collectOnly:true }
+];
+
+var QUESTIONS = [
+  { key:"weight", title:"How much does the rider weigh?",
+    hint:"Every scooter has a maximum user weight. If you're between bands, choose the higher one.",
+    options:[
+      { v:115,  ic:"🟢", label:"Up to 115 kg", sub:"Up to 254 lb" },
+      { v:120,  ic:"🟢", label:"115 to 120 kg", sub:"Up to 265 lb" },
+      { v:124.7,ic:"🟡", label:"120 to 124 kg", sub:"Up to 275 lb" },
+      { v:136,  ic:"🟡", label:"124 to 136 kg", sub:"Up to 300 lb" },
+      { v:159,  ic:"🟠", label:"136 to 159 kg", sub:"Up to 351 lb" },
+      { v:181,  ic:"🟠", label:"159 to 181 kg", sub:"Up to 399 lb" },
+      { v:999,  ic:"⚪", label:"Over 181 kg", sub:"Over 399 lb" }
+    ]},
+  { key:"access", title:"Any steps at your hotel, Airbnb or on your route?",
+    hint:"Even one or two steps matter. Heavy-duty scooters weigh 60 kg or more and can't be carried.",
+    options:[
+      { v:"steps",  ic:"🪜", label:"Yes, there are some steps", sub:"The scooter will need to be lifted" },
+      { v:"small",  ic:"🛗", label:"Step-free, but the lift is small", sub:"Older buildings and compact hotel lifts" },
+      { v:"free",   ic:"♿", label:"Step-free everywhere", sub:"Ramps, ground floor or roomy lifts" }
+    ]},
+  { key:"transport", title:"Will the scooter travel in a vehicle?",
+    options:[
+      { v:"blackcab", ic:"🚕", label:"Black cabs", sub:"Every black cab has a ramp, so any scooter rides straight on" },
+      { v:"uber",  ic:"🚙", label:"Ubers or minicabs", sub:"It needs to fold or come apart to go in the boot" },
+      { v:"train", ic:"🚆", label:"Trains", sub:"Day trips out of London by rail" },
+      { v:"boot",  ic:"🚗", label:"Our own car", sub:"Happy to take it apart to fit the boot" },
+      { v:"none",  ic:"🛵", label:"No, I'll ride it everywhere", sub:"Delivered to you, ridden from door to door" }
+    ]},
+  { key:"distance", title:"How far will you go on a typical day?",
+    hint:"Ranges are the maximum quoted. Real London range is lower in cold weather and on hills.",
+    options:[
+      { v:"short", ic:"☕", label:"Short trips", sub:"Up to about 6 miles, a few hours out" },
+      { v:"half",  ic:"🛍️", label:"Half a day", sub:"About 6 to 12 miles" },
+      { v:"full",  ic:"🗺️", label:"A full day of sightseeing", sub:"12 miles or more" }
+    ]},
+  { key:"priority", title:"What matters most to you?",
+    options:[
+      { v:"light",   ic:"🪶", label:"Light and folding", sub:"Easy to lift, fold and take anywhere" },
+      { v:"comfort", ic:"💺", label:"All-day comfort", sub:"High-back seat and extra legroom" },
+      { v:"smooth",  ic:"⚡", label:"Smoothest, faster ride", sub:"Bigger wheels and suspension, up to 8 mph" }
+    ]},
+  { key:"collect", title:"Delivery or collection?",
+    hint:"One of our best matches for you is collection only, from 19 Connaught Street near Marble Arch.",
+    show:function(a){ return candidates(a,["weight","access","transport"]).some(function(s){return s.collectOnly;}); },
+    options:[
+      { v:"deliver", ic:"📦", label:"Please deliver", sub:"To your hotel, Airbnb or home in Central London" },
+      { v:"collect", ic:"🏬", label:"We can collect", sub:"From our Marble Arch showroom" }
+    ]}
+];
+
+/* ---------- Hard rules: a scooter is shown only if it passes every answered rule ---------- */
+var RULES = {
+  weight:    function(s,v){ return s.maxKg >= v; },
+  access:    function(s,v){ return v==="steps" ? s.liftable : v==="small" ? s.narrow : true; },
+  transport: function(s,v){ return v==="train" ? s.cab : (v==="uber"||v==="boot") ? s.boot : true; },
+  collect:   function(s,v){ return v==="deliver" ? !s.collectOnly : true; }
+};
+function passes(s,a,keys){
+  keys = keys || Object.keys(RULES);
+  return keys.every(function(k){ return a[k]===undefined || !RULES[k] || RULES[k](s,a[k]); });
+}
+function candidates(a,keys){ return SCOOTERS.filter(function(s){ return passes(s,a,keys); }); }
+
+/* ---------- Ranking sequence: points per answer, highest wins, ties go to fleet order ---------- */
+var POINTS = {
+  distance:{
+    short:{ SH:1 },
+    half: { UC:1, U30:1, L75:1, L6:-3 },
+    full: { U30:3, UC:1, H6:1, H20:2, SH:-2, L75:-4, L6:-5 }
+  },
+  priority:{
+    light:  { SH:3, UC:3, U30:2, HC2:-2, H6:-2, H8:-2, H20:-2 },
+    comfort:{ HC2:3, H6:3, H8:2, H20:2, L6:1, L75:1, SH:-1, UC:-1, U30:-1 },
+    smooth: { H8:4, H20:3, H6:2 }
+  },
+  transport:{ train:{ SH:2 } },
+  access:{ small:{ H6:1 } }
+};
+function score(s,a){
+  var t = 0;
+  Object.keys(POINTS).forEach(function(k){
+    var table = POINTS[k][a[k]];
+    if (table && table[s.id]) t += table[s.id];
+  });
+  return t;
+}
+function rank(list,a){
+  return list.map(function(s,i){ return {s:s, pts:score(s,a), i:SCOOTERS.indexOf(s)}; })
+    .sort(function(x,y){ return (y.pts-x.pts) || (x.i-y.i); })
+    .map(function(r){ return r.s; });
+}
+
+/* ---------- Recommendation, with a fallback when nothing passes every rule ---------- */
+function recommend(a){
+  var exact = candidates(a);
+  if (exact.length) return { exact:true, list:rank(exact,a) };
+  if (a.weight > 181) return { exact:false, list:[], reason:"overweight" };
+  // Relax rules one at a time in this order, never relaxing weight.
+  var relaxOrder = [["collect"],["transport"],["access"],["transport","access"],["transport","access","collect"]];
+  for (var i=0;i<relaxOrder.length;i++){
+    var keep = Object.keys(RULES).filter(function(k){ return relaxOrder[i].indexOf(k)<0; });
+    var near = candidates(a,keep);
+    if (near.length) return { exact:false, list:rank(near,a), relaxed:relaxOrder[i] };
+  }
+  return { exact:false, list:[], reason:"none" };
+}
+
+function reasons(s,a){
+  var r = [];
+  r.push("Carries riders up to " + s.maxLabel + ".");
+  if (a.access==="steps") r.push("Light enough to lift over steps (" + s.weight + ").");
+  if (a.access==="small" && s.id==="H6") r.push("At 560 mm wide it's our narrowest heavy-duty scooter, so it suits small lifts.");
+  if (a.access==="small" && s.liftable) r.push("Compact and foldable, so it fits small lifts easily.");
+  if (a.transport==="blackcab") r.push("Rides straight up a black cab's ramp, no folding needed.");
+  if (a.transport==="uber") r.push(s.liftable ? "Folds to fit an Uber or minicab boot." : "Comes apart into pieces to fit an Uber or minicab boot.");
+  if (a.transport==="train") r.push(s.id==="SH" ? "Our lightest scooter, the easiest to carry on and off trains." : "Folds small enough to take on a train.");
+  if (a.transport==="boot") r.push(s.liftable ? "Folds to fit most car boots." : "Comes apart into pieces to fit a car boot.");
+  if (a.distance==="full") r.push("Range of " + s.range.replace(/^Up to/,"up to") + " for a full day out.");
+  else if (a.distance==="half") r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", plenty for half a day.");
+  else r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", ideal for shorter trips.");
+  if (a.priority==="comfort" && /^H/.test(s.id)) r.push("High-back seat for comfort over a full day.");
+  if (a.priority==="smooth" && (s.id==="H8"||s.id==="H20")) r.push("Up to 8 mph with our smoothest ride.");
+  if (a.priority==="light" && s.liftable) r.push("Folds and lifts in seconds.");
+  if (s.collectOnly) r.push("Collection only, from 19 Connaught Street near Marble Arch.");
+  return r;
+}
+
+/* ---------- UI ---------- */
+var EMBED = window.self !== window.top || /[?&]embed=1/.test(location.search);
+if (EMBED) document.body.classList.add("embedded");
+var app = document.getElementById("app");
+var answers = {}, step = -1;
+
+function visibleQuestions(){ return QUESTIONS.filter(function(q){ return !q.show || q.show(answers); }); }
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function linkAttrs(){ return EMBED ? ' target="_top"' : ''; }
+function tell(type,data){ if (EMBED) try{ parent.postMessage(Object.assign({source:"cr-scooter-finder",type:type},data||{}),"*"); }catch(e){} }
+
+function renderIntro(){
+  app.innerHTML =
+    '<div class="fade"><h1>Which mobility scooter should I hire?</h1>' +
+    '<p class="lede">Answer up to six quick questions and we\'ll match you to the right scooter from our nine, with the reasons why.</p>' +
+    '<ul class="intro-points"><li>Takes under a minute</li><li>Based on weight limits, steps, taxis and range</li><li>Book straight from your result</li></ul>' +
+    '<button class="primary" type="button" id="start">Find my scooter →</button></div>';
+  document.getElementById("start").onclick = function(){ step = 0; render(); };
+}
+
+function renderQuestion(){
+  var qs = visibleQuestions(), q = qs[step];
+  var pct = Math.round((step)/qs.length*100);
+  var html = '<div class="fade"><div class="progress"><span style="width:'+pct+'%"></span></div>' +
+    '<div class="step-label"><span>Question '+(step+1)+' of '+qs.length+'</span></div>' +
+    '<h2 id="qt">'+esc(q.title)+'</h2>' + (q.hint ? '<p class="hint">'+esc(q.hint)+'</p>' : '<p class="hint"></p>') +
+    '<div class="opts" role="group" aria-labelledby="qt">';
+  q.options.forEach(function(o,i){
+    var sel = answers[q.key]===o.v ? " sel" : "";
+    html += '<button type="button" class="opt'+sel+'" data-i="'+i+'"><span class="ic" aria-hidden="true">'+o.ic+'</span><span><b>'+esc(o.label)+'</b>'+(o.sub?'<small>'+esc(o.sub)+'</small>':'')+'</span></button>';
+  });
+  html += '</div><div class="nav"><button type="button" class="link-btn" id="back">← Back</button><span></span></div></div>';
+  app.innerHTML = html;
+  app.querySelectorAll(".opt").forEach(function(b){
+    b.onclick = function(){
+      answers[q.key] = q.options[+b.dataset.i].v;
+      // Drop answers to questions that are no longer shown.
+      QUESTIONS.forEach(function(x){ if (x.show && !x.show(answers) && x.key in answers) delete answers[x.key]; });
+      step++;
+      render();
+    };
+  });
+  document.getElementById("back").onclick = function(){ step--; render(); };
+  var first = app.querySelector(".opt.sel") || app.querySelector(".opt");
+  if (first && step>0) first.focus({preventScroll:true});
+}
+
+function renderResult(){
+  var rec = recommend(answers);
+  tell("result",{ scooter: rec.list[0] ? rec.list[0].name : "none", exact: rec.exact });
+  if (!rec.list.length){
+    app.innerHTML = '<div class="fade"><h2>Let\'s find the right fit together</h2>' +
+      '<p class="lede">'+(rec.reason==="overweight" ? "Our scooters carry riders up to 181 kg (399 lb). Message us and we'll help you find a safe alternative, such as a heavy-duty electric wheelchair." : "None of our scooters ticks every box for your trip. Message us and we'll suggest the best option.")+'</p>' +
+      helpBlock() + restartBlock() + '</div>';
+    bindRestart(); return;
+  }
+  var top = rec.list[0], alts = rec.list.slice(1,3);
+  var note = "";
+  if (!rec.exact){
+    var map = { access:"the steps or lift at your accommodation", transport:"travelling in a vehicle", collect:"delivery" };
+    note = '<div class="note"><b>Closest match.</b> No scooter meets every need, so this ignores '+rec.relaxed.map(function(k){return map[k];}).join(" and ")+'. Please WhatsApp us before booking so we can check it will work for you.</div>';
+  }
+  var html = '<div class="fade">' + note +
+    '<div class="result-top"><div class="eyebrow">'+(rec.exact?"Our recommendation":"Closest option")+'</div>' +
+    '<h2>'+esc(top.name)+'</h2><div class="best">Best for: '+esc(top.best)+'</div>' +
+    '<div class="specs"><div class="spec"><small>Max rider</small><b>'+esc(top.maxLabel)+'</b></div>' +
+    '<div class="spec"><small>Range</small><b>'+esc(top.range)+'</b></div>' +
+    '<div class="spec"><small>Scooter weight</small><b>'+esc(top.weight)+'</b></div></div>' +
+    '<a class="primary" href="'+top.url+'"'+linkAttrs()+' data-book="'+esc(top.name)+'">Check dates and book →</a></div>' +
+    '<div class="why"><h3>Why this one</h3><ul>' + reasons(top,answers).map(function(t){return "<li>"+esc(t)+"</li>";}).join("") + '</ul></div>';
+  if (alts.length){
+    html += '<div class="alts"><h3>Also worth a look</h3>';
+    alts.forEach(function(s){
+      html += '<a class="alt" href="'+s.url+'"'+linkAttrs()+' data-book="'+esc(s.name)+'"><span><b>'+esc(s.name)+'</b><small>Up to '+esc(s.maxLabel)+' · '+esc(s.range)+' · '+esc(s.best)+'</small></span><span class="arrow">→</span></a>';
+    });
+    html += '</div>';
+  }
+  html += helpBlock() + summaryBlock() + restartBlock() + '</div>';
+  app.innerHTML = html;
+  app.querySelectorAll("[data-book]").forEach(function(a){ a.addEventListener("click",function(){ tell("book",{scooter:a.dataset.book}); }); });
+  bindRestart();
+  window.scrollTo(0,0);
+}
+
+function helpBlock(){
+  return '<div class="help"><p>Not sure? Try both in our Marble Arch showroom, or ask us. Most Central London bookings are delivered within an hour.</p>' +
+    '<a class="secondary wa" href="'+WHATSAPP+'" target="_blank" rel="noopener">WhatsApp us</a></div>';
+}
+function summaryBlock(){
+  var items = visibleQuestions().filter(function(q){return q.key in answers;}).map(function(q){
+    var o = q.options.filter(function(o){return o.v===answers[q.key];})[0];
+    return "<li>"+esc(q.title)+" <b>"+esc(o?o.label:"")+"</b></li>";
+  }).join("");
+  return '<details class="answers"><summary>Your answers</summary><ul>'+items+'</ul></details>';
+}
+function restartBlock(){ return '<div class="nav"><button type="button" class="link-btn" id="back">← Change my answers</button><button type="button" class="secondary" id="restart">Start again</button></div>'; }
+function bindRestart(){
+  var r = document.getElementById("restart"), b = document.getElementById("back");
+  if (r) r.onclick = function(){ answers = {}; step = -1; render(); };
+  if (b) b.onclick = function(){ step = visibleQuestions().length-1; render(); };
+}
+
+function render(){
+  var qs = visibleQuestions();
+  if (step < 0) renderIntro();
+  else if (step >= qs.length) renderResult();
+  else renderQuestion();
+  tell("height",{ h: document.documentElement.scrollHeight });
+}
+
+document.querySelectorAll("[data-close]").forEach(function(b){ b.onclick = function(){ tell("close"); }; });
+document.addEventListener("keydown",function(e){ if (e.key==="Escape") tell("close"); });
+if (/[?&]start=1/.test(location.search)) step = 0;
+render();
+</script>
+</body>
+</html>
