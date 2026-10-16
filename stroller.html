@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stroller Finder | Chelsea's Rentals</title>
+<meta name="description" content="Answer a few quick questions to find the right stroller, double stroller or wagon to hire in Central London.">
+<meta name="theme-color" content="#2D235C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<style>
+:root{
+  --ink:#1d1838; --muted:#5d5878; --brand:#2D235C; --brand-2:#43368a;
+  --soft:#f3f1fa; --line:#e3dff0; --card:#fff; --bg:#faf9fd;
+  --accent:#e85d75; --ok:#1f7a53; --warn:#9a5b00; --warn-bg:#fff5e5;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.45}
+body.embedded{background:var(--card)}
+a{color:var(--brand)}
+button{font:inherit;color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 32px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--brand);font-weight:700;font-size:15px}
+.brand img{height:34px;width:auto}
+.close{border:0;background:var(--soft);width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none}
+.close:hover{background:var(--line)}
+.close svg{width:18px;height:18px}
+.back-site{font-size:14px;color:var(--muted);text-decoration:none}
+.back-site:hover{color:var(--brand)}
+body.embedded .back-site{display:none}
+body:not(.embedded) .close{display:none}
+body.embedded .top{position:sticky;top:0;z-index:5;background:var(--card);margin:-20px -16px 18px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.brand img{max-width:180px}
+
+.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.progress span{display:block;height:100%;background:var(--brand);width:0;transition:width .3s ease}
+.step-label{font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between}
+
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;color:var(--brand);margin:0}
+h1{font-size:clamp(26px,6vw,34px);line-height:1.15}
+h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
+.lede{color:var(--muted);margin:10px 0 22px;font-size:16px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+.opt:hover{border-color:var(--brand-2);background:var(--soft)}
+.opt:active{transform:scale(.995)}
+.opt:focus-visible{outline:3px solid #b8aef0;outline-offset:2px}
+.opt.sel{border-color:var(--brand);background:var(--soft)}
+.opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px}
+.opt.sel .ic{background:#fff}
+.opt b{display:block;font-weight:600;font-size:16px}
+.opt small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;min-height:40px}
+.link-btn{background:none;border:0;color:var(--muted);cursor:pointer;padding:8px 0;font-size:15px}
+.link-btn:hover{color:var(--brand)}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:14px 22px;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer}
+.primary:hover{background:var(--brand-2)}
+.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand);border:1.5px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer}
+.secondary:hover{border-color:var(--brand)}
+
+.intro-points{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+.intro-points li{display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.intro-points li::before{content:"✓";color:var(--ok);font-weight:700}
+
+.result-top{background:var(--brand);color:#fff;border-radius:var(--radius);padding:22px 20px;margin-bottom:14px}
+.result-top .eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.8;font-weight:600}
+.result-top h2{color:#fff;font-size:clamp(24px,6vw,30px);margin:6px 0 4px}
+.result-top .best{opacity:.9;font-size:15px}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 18px}
+.spec{background:rgba(255,255,255,.12);border-radius:12px;padding:10px}
+.spec small{display:block;font-size:12px;opacity:.8}
+.spec b{font-size:14.5px;font-weight:600}
+.result-top .primary{background:#fff;color:var(--brand);width:100%}
+.result-top .primary:hover{background:var(--soft)}
+.why{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px}
+.why h3,.alts h3{font-size:15px;margin:0 0 10px;color:var(--brand)}
+.why ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:14px}
+.alts{margin-bottom:16px}
+.alt{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
+.alt:hover{border-color:var(--brand-2)}
+.alt b{display:block;font-size:15px}
+.alt small{color:var(--muted);font-size:13px}
+.alt .arrow{color:var(--brand);font-weight:700;flex:none}
+.cross{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1.5px dashed var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
+.cross p{margin:0;font-size:14.5px;flex:1 1 220px}
+.help{background:var(--soft);border-radius:var(--radius);padding:16px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.help p{margin:0;font-size:14.5px;flex:1 1 220px}
+.wa{background:#1f8f4e;color:#fff;border:0}
+.wa:hover{background:#177a41}
+.answers{font-size:13.5px;color:var(--muted);margin:16px 0 0}
+.answers summary{cursor:pointer}
+.answers ul{padding-left:18px}
+.fade{animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:420px){.specs{grid-template-columns:1fr 1fr}.spec:last-child{grid-column:span 2}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="https://chelseas-rentals.com/" target="_top">
+      <img src="https://content.booqablecdn.com/uploads/41ef1003c136793071aa08151a652d61/company/logo/23a5f7fc-0284-419c-b094-61d1be3204ab/8dd8ead0-0c98-44b1-a37e-630121f3c322(2).png" alt="Chelsea's Rentals">
+    </a>
+    <a class="back-site" href="https://chelseas-rentals.com/pages/stroller-hire-central-london">← Back to Chelsea's Rentals</a>
+    <button class="close" type="button" aria-label="Close stroller finder" data-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <main id="app" aria-live="polite"></main>
+</div>
+<script>
+/* Chelsea's Rentals – Stroller Finder
+   Data source: chelseas-rentals.com stroller and wagon product pages (October 2026).
+   To change the fleet, edit P. To change the logic, edit decide(). */
+(function () {
+  var P = {
+    ARIES: { id: "ARIES", name: "Ickle Bubba Aries", url: "/products/ickle-bubba-aries-stroller", kg: 22,
+      best: "The lightest stroller we rent, with a big seat for toddlers",
+      specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.1 kg"], ["Fold", "Automatic, locks shut"]],
+      tags: { light: 3, fold: 2, tube: 3, toddler: 2, cab: 2 } },
+    JOOLZ: { id: "JOOLZ", name: "Joolz Aer2", url: "/products/joolz-aer-2-stroller", kg: 22,
+      best: "Flying: folds small enough for an overhead locker",
+      specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.5 kg"], ["Fold", "One hand, one second"]],
+      tags: { fly: 5, light: 2, fold: 2, tube: 2, newborn: 1 } },
+    LAIKA: { id: "LAIKA", name: "Maxi-Cosi Laika2", url: "/products/maxi-cosi-laika2-stroller", kg: 22,
+      best: "Buses, the Tube and stairs, comfortable from birth",
+      specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "7.45 kg"], ["Fold", "One hand, with shoulder strap"]],
+      tags: { tube: 3, light: 1, nap: 2, newborn: 2, fold: 1 } },
+    LARA: { id: "LARA", name: "Maxi-Cosi Lara2", url: "/products/maxi-cosi-lara2-stroller", kg: 22,
+      best: "Naps on the go, with plenty of storage",
+      specs: [["Child weight", "Birth to 22 kg"], ["Seat", "Lie-flat plus 3 recline positions"], ["Storage", "2 shopping baskets"]],
+      tags: { nap: 3, newborn: 2, tube: 1, cab: 1 } },
+    APINO: { id: "APINO", name: "Kinderkraft Apino", url: "/products/kinderkraft-apino-stroller", kg: 22,
+      best: "Folds itself and stands on its own",
+      specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "7.5 kg"], ["Fold", "Automatic, stands folded"]],
+      tags: { fold: 3, cab: 3, nap: 1, newborn: 1, tube: 1 } },
+    GRANDE: { id: "GRANDE", name: "Kinderkraft Grande", url: "/products/kinderkraft-grande", kg: 22,
+      best: "Parks and bumpy paths, with big shock-absorbing wheels",
+      specs: [["Child weight", "Birth to 22 kg"], ["Wheels", "Large, puncture-resistant, 360°"], ["Seat", "Spacious and deep"]],
+      tags: { park: 4, toddler: 2, nap: 1, cab: 1 } },
+    COSATTO: { id: "COSATTO", name: "Cosatto Woosh City", url: "/products/cosatto-woosh-city", kg: 25,
+      best: "Bigger toddlers: our highest weight limit, and cabin-bag size",
+      specs: [["Child weight", "Birth to 25 kg"], ["Stroller weight", "8.65 kg"], ["Folded", "55.5 x 45.5 x 25 cm"]],
+      tags: { toddler: 4, fly: 3, nap: 1, cab: 1 } },
+    INDY: { id: "INDY", name: "Kinderkraft Indy 3", url: "/products/kinderkraft-indy-3", kg: 15,
+      best: "A simple, light stroller for babies and young toddlers",
+      specs: [["Child weight", "Birth to 15 kg"], ["Stroller weight", "7.3 kg"], ["Fold", "One hand"]],
+      tags: { light: 1, fold: 1, tube: 1 } },
+    DOUBLE: { id: "DOUBLE", name: "Ickle Bubba Aries Double", url: "/products/ickle-bubba-aries-double-stroller", kg: 15,
+      best: "Two little ones on city streets, the Tube and through doorways",
+      specs: [["Children", "2, from birth to 15 kg"], ["Width", "69 cm, fits standard doorways"], ["Stroller weight", "10.5 kg"]] },
+    W2: { id: "W2", name: "Wonderfold W2 Wagon", url: "/products/wonderfold-w2-wagon", kg: 20,
+      best: "Parks, zoos and Winter Wonderland with two children and all your bags",
+      specs: [["Children", "2, from 6 months"], ["Per seat", "Up to 20 kg"], ["Wheels", "All-terrain with suspension"]] },
+    X2: { id: "X2", name: "Wonderfold X2 Wagon", url: "/products/wonderfold-x2-wagon", kg: 20,
+      best: "Push or pull two children, with room for bags",
+      specs: [["Children", "2"], ["Handles", "Push and pull"], ["Canopy", "Removable, UV protection"]] }
+  };
+  var SINGLES = ["ARIES", "JOOLZ", "LAIKA", "LARA", "APINO", "GRANDE", "COSATTO", "INDY"];
+
+  var questions = [
+    { id: "kids", short: "Children", title: "How many children will ride?",
+      options: [
+        { v: 1, ic: "👶", t: "One child" },
+        { v: 2, ic: "👧👦", t: "Two children" }
+      ] },
+    { id: "age", short: "Child", title: "How old is your child?", hint: "If you know their weight, use that. Every stroller has a maximum child weight.", showIf: function (a) { return a.kids === 1; },
+      options: [
+        { v: "newborn", ic: "🍼", t: "Newborn to 6 months", s: "Needs a lie-flat seat" },
+        { v: "baby", ic: "🧸", t: "6 months to about 3 years", s: "Up to 15 kg (33 lb)" },
+        { v: "toddler", ic: "🚸", t: "About 3 to 4 years", s: "15 to 22 kg (33 to 48 lb)" },
+        { v: "big", ic: "🎒", t: "Bigger child", s: "22 to 25 kg (48 to 55 lb)" },
+        { v: "over", ic: "📏", t: "Over 25 kg", s: "Over 55 lb" }
+      ] },
+    { id: "twoage", short: "Children", title: "How old are they?", hint: "Think about the youngest and the heaviest child.", showIf: function (a) { return a.kids === 2; },
+      options: [
+        { v: "baby", ic: "🍼", t: "The youngest is under 6 months" },
+        { v: "small", ic: "🧸", t: "Both over 6 months, and both under 15 kg" },
+        { v: "bigger", ic: "🚸", t: "Both over 6 months, one is 15 to 20 kg" },
+        { v: "over", ic: "📏", t: "One is over 20 kg" }
+      ] },
+    { id: "move", short: "Getting around", title: "How will you mostly get around London?", showIf: function (a) { return a.kids === 1 && a.age !== "over"; },
+      options: [
+        { v: "tube", ic: "🚇", t: "The Tube, buses and stairs" },
+        { v: "cab", ic: "🚕", t: "Taxis, Ubers and car boots" },
+        { v: "park", ic: "🌳", t: "Walking, parks and Winter Wonderland" },
+        { v: "fly", ic: "✈️", t: "I'm flying and want to take it on the plane" }
+      ] },
+    { id: "pri", short: "Most important", title: "What matters most to you?", showIf: function (a) { return a.kids === 1 && a.age !== "over"; },
+      options: [
+        { v: "light", ic: "🪶", t: "As light as possible", s: "Easy to carry up stairs" },
+        { v: "fold", ic: "⚡", t: "The easiest fold", s: "Folds quickly, ideally by itself" },
+        { v: "nap", ic: "😴", t: "Comfortable naps", s: "Lie-flat seat and recline" },
+        { v: "toddler", ic: "📐", t: "Room for a growing toddler", s: "A bigger seat" }
+      ] },
+    { id: "where", short: "Getting around", title: "Where will you spend most of your time?", showIf: function (a) { return a.kids === 2 && a.twoage !== "over"; },
+      options: [
+        { v: "city", ic: "🏙️", t: "City streets, the Tube and shops", s: "Needs to fit through doorways" },
+        { v: "park", ic: "🌳", t: "Parks, zoos and Winter Wonderland", s: "Room for bags too" }
+      ] }
+  ];
+
+  var WHY = {
+    light: "Light to carry up stairs and onto buses",
+    fold: "Quick, easy fold for taxis and hotel rooms",
+    tube: "Compact for the Tube, buses and busy pavements",
+    nap: "Lie-flat seat for naps on the go",
+    toddler: "Roomy seat for a growing toddler",
+    park: "Big wheels for parks and uneven paths",
+    cab: "Folds small for taxis and car boots",
+    fly: "Small enough to take on the plane",
+    newborn: "Comfortable from birth in the lie-flat position"
+  };
+  var KG = { newborn: 9, baby: 15, toddler: 22, big: 25 };
+
+  function decide(a) {
+    var note = "", why = [], alts = [], main;
+    if (a.kids === 2) {
+      if (a.twoage === "over") return { main: null, noneTitle: "Let's find the right option together", noneText: "Our double strollers and wagons take children up to 20 kg per seat. Message us and we'll suggest a combination.", alts: [] };
+      if (a.twoage === "baby") {
+        main = P.DOUBLE;
+        why = ["Suitable from birth, with two independently reclining seats", "Slim 69 cm frame fits through standard doorways and Tube aisles", "Just 10.5 kg"];
+        if (a.where === "park") note = "Our Wonderfold wagons are for children from 6 months, so we've suggested the double stroller.";
+        alts = [{ p: P.X2, why: "A push-or-pull wagon with room for bags, once both are older" }];
+      } else if (a.twoage === "bigger") {
+        main = P.W2;
+        why = ["Takes up to 20 kg per seat", "All-terrain wheels with suspension", "Room for two children plus your bags"];
+        if (a.where === "city") note = "The double stroller takes children up to 15 kg, so we've suggested the W2 wagon. It's wider than a stroller, so it suits parks and pavements better than the Tube.";
+        alts = [{ p: P.X2, why: "Push or pull, with a canopy and room for bags" }];
+      } else if (a.where === "park") {
+        main = P.W2;
+        why = ["All-terrain wheels with suspension for parks and paths", "Padded seats with 5-point harnesses", "Room for two children plus your bags"];
+        alts = [{ p: P.X2, why: "Push or pull, with a removable canopy" }, { p: P.DOUBLE, why: "Slimmer, for city streets and the Tube" }];
+      } else {
+        main = P.DOUBLE;
+        why = ["Slim 69 cm frame fits through standard doorways and Tube aisles", "Two independently adjustable seats and hoods", "Just 10.5 kg"];
+        alts = [{ p: P.W2, why: "A wagon for parks, zoos and lots of bags" }];
+      }
+      return { main: main, why: why, note: note, alts: alts };
+    }
+
+    if (a.age === "over") return { main: null, noneTitle: "Let's find the right option together", noneText: "Our strollers take children up to 25 kg. Message us and we'll help you find something that works.", alts: [] };
+
+    var kg = KG[a.age];
+    var scored = SINGLES.map(function (id) {
+      var p = P[id], t = p.tags, s = 0;
+      if (kg > p.kg) return null;
+      s += (t[a.move] || 0) * 2;
+      s += (t[a.pri] || 0) * 2;
+      if (a.age === "newborn") s += (t.newborn || 0) + (t.nap || 0);
+      if (a.age === "toddler" || a.age === "big") s += t.toddler || 0;
+      if (id === "INDY") s -= 1;
+      return { p: p, s: s };
+    }).filter(Boolean).sort(function (x, y) { return y.s - x.s; });
+
+    main = scored[0].p;
+    [a.move, a.pri].forEach(function (k) { if (main.tags[k] && WHY[k] && why.indexOf(WHY[k]) < 0) why.push(WHY[k]); });
+    if (a.age === "newborn" && main.tags.newborn) why.push(WHY.newborn);
+    why.push("Takes children up to " + main.kg + " kg");
+    if (a.move === "fly" && main.id !== "JOOLZ" && main.id !== "COSATTO") note = "Check your airline's cabin rules before you fly.";
+    if (a.age === "newborn") note = "Carrycots and car seats aren't included with our strollers. Ask us if you need one.";
+    if (a.age === "big") note = "The Cosatto Woosh City is the only stroller we rent that takes children over 22 kg.";
+    alts = scored.slice(1, 3).map(function (x) { return { p: x.p, why: x.p.best }; });
+    return { main: main, why: why, note: note, alts: alts };
+  }
+
+  window.FINDER = {
+    tool: "stroller",
+    title: "Which stroller should I hire?",
+    intro: "Answer up to four quick questions and we'll match you to the right stroller, double stroller or wagon for your London trip.",
+    points: ["Every stroller comes with a rain cover", "Takes about a minute", "Delivered to your hotel or Airbnb, often within the hour"],
+    questions: questions,
+    decide: decide,
+    guideUrl: "https://chelseas-rentals.com/pages/stroller-hire-central-london",
+    whatsappText: "Hi, I used your stroller finder and would like some help choosing a stroller."
+  };
+})();
+
+</script>
+<script>
+/* Shared finder engine. Each page defines window.FINDER = { tool, title, intro, points, questions, decide, products, guideUrl, whatsappText } */
+(function () {
+  var F = window.FINDER;
+  var SITE = "https://chelseas-rentals.com";
+  var params = new URLSearchParams(location.search);
+  var EMBED = params.get("embed") === "1" || window.self !== window.top;
+  var START = params.get("start") === "1";
+  var app = document.getElementById("app");
+  var WHATSAPP = "https://wa.me/447880152221?text=" + encodeURIComponent(F.whatsappText);
+  if (EMBED) document.body.classList.add("embedded");
+
+  var answers = {}, step = 0;
+
+  function trs() { return EMBED ? ' target="_top"' : ''; }
+  function tell(type, data) {
+    if (!EMBED) return;
+    try { parent.postMessage(Object.assign({ source: "cr-finder", tool: F.tool, type: type }, data || {}), "*"); } catch (e) {}
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function visible() { return F.questions.filter(function (q) { return !q.showIf || q.showIf(answers); }); }
+
+  document.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", function () { tell("close"); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") tell("close"); });
+
+  function renderIntro() {
+    app.innerHTML =
+      '<div class="fade"><h1>' + esc(F.title) + '</h1>' +
+      '<p class="lede">' + esc(F.intro) + '</p>' +
+      '<ul class="intro-points">' + F.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + '</ul>' +
+      '<button class="primary" type="button" id="go">Start</button></div>';
+    document.getElementById("go").onclick = function () { step = 0; renderQ(); };
+  }
+
+  function renderQ() {
+    var qs = visible();
+    if (step >= qs.length) return renderResult();
+    var q = qs[step];
+    var pct = Math.round((step / qs.length) * 100);
+    app.innerHTML =
+      '<div class="fade"><div class="progress"><span style="width:' + pct + '%"></span></div>' +
+      '<div class="step-label"><span>Question ' + (step + 1) + ' of ' + qs.length + '</span></div>' +
+      '<h2>' + esc(q.title) + '</h2>' + (q.hint ? '<p class="hint">' + esc(q.hint) + '</p>' : '') +
+      '<div class="opts" role="list">' + q.options.map(function (o, i) {
+        return '<button type="button" class="opt' + (answers[q.id] === o.v ? ' sel' : '') + '" data-i="' + i + '">' +
+          '<span class="ic" aria-hidden="true">' + o.ic + '</span><span><b>' + esc(o.t) + '</b>' + (o.s ? '<small>' + esc(o.s) + '</small>' : '') + '</span></button>';
+      }).join("") + '</div>' +
+      '<div class="nav">' + (step > 0 || !START ? '<button type="button" class="link-btn" id="back">← Back</button>' : '<span></span>') + '<span></span></div></div>';
+    app.querySelectorAll(".opt").forEach(function (b) {
+      b.onclick = function () {
+        answers[q.id] = q.options[+b.dataset.i].v;
+        // drop answers to questions that no longer apply
+        F.questions.forEach(function (x) { if (x.showIf && !x.showIf(answers)) delete answers[x.id]; });
+        step++; renderQ();
+      };
+    });
+    var back = document.getElementById("back");
+    if (back) back.onclick = function () { if (step === 0) renderIntro(); else { step--; renderQ(); } };
+    var first = app.querySelector(".opt"); if (first && step > 0) first.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }
+
+  function specs(p) {
+    return '<div class="specs">' + p.specs.map(function (s) { return '<div class="spec"><small>' + esc(s[0]) + '</small><b>' + esc(s[1]) + '</b></div>'; }).join("") + '</div>';
+  }
+
+  function crossLink(c) {
+    var href = SITE + "/#find-my-" + c.tool;
+    return '<div class="cross"><p>' + esc(c.text) + '</p><a class="secondary" href="' + href + '" data-switch="' + c.tool + '"' + trs() + '>' + esc(c.label) + ' →</a></div>';
+  }
+
+  function renderResult() {
+    var r = F.decide(answers);
+    var p = r.main;
+    tell("result", { product: p ? p.id : "none", exact: !r.note });
+    var html = '<div class="fade">';
+    if (p) {
+      html += '<div class="result-top"><div class="eyebrow">Our recommendation</div><h2>' + esc(p.name) + '</h2>' +
+        '<div class="best">Best for: ' + esc(p.best) + '</div>' + specs(p) +
+        '<a class="primary" data-book="' + p.id + '" href="' + SITE + p.url + '"' + trs() + '>See prices and book</a></div>';
+    } else {
+      html += '<div class="result-top"><div class="eyebrow">Let\'s talk</div><h2>' + esc(r.noneTitle) + '</h2><div class="best">' + esc(r.noneText) + '</div><div style="height:16px"></div>' +
+        '<a class="primary" href="' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp us</a></div>';
+    }
+    if (r.note) html += '<div class="note">' + esc(r.note) + '</div>';
+    if (r.why && r.why.length) html += '<div class="why"><h3>Why this one</h3><ul>' + r.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join("") + '</ul></div>';
+    if (r.alts && r.alts.length) {
+      html += '<div class="alts"><h3>Also worth a look</h3>' + r.alts.map(function (a) {
+        return '<a class="alt" data-book="' + a.p.id + '" href="' + SITE + a.p.url + '"' + trs() + '><span><b>' + esc(a.p.name) + '</b><small>' + esc(a.why) + '</small></span><span class="arrow">→</span></a>';
+      }).join("") + '</div>';
+    }
+    if (r.cross) html += crossLink(r.cross);
+    html += '<div class="help"><p>Still not sure? We\'re happy to help you choose. Call, text or WhatsApp +44 7880 152221.</p>' +
+      '<a class="secondary wa" href="' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp us</a></div>';
+    html += '<div class="nav"><button type="button" class="link-btn" id="again">↺ Start again</button>' +
+      '<a class="link-btn" href="' + F.guideUrl + '"' + trs() + '>Read the full guide</a></div>';
+    html += '<details class="answers"><summary>Your answers</summary><ul>' + visible().map(function (q) {
+      var o = q.options.filter(function (x) { return x.v === answers[q.id]; })[0];
+      return o ? '<li>' + esc(q.short || q.title) + ': ' + esc(o.t) + '</li>' : '';
+    }).join("") + '</ul></details></div>';
+    app.innerHTML = html;
+    app.querySelectorAll("[data-book]").forEach(function (a) { a.addEventListener("click", function () { tell("book", { product: a.dataset.book }); }); });
+    app.querySelectorAll("[data-switch]").forEach(function (a) {
+      a.addEventListener("click", function (e) { if (EMBED) { e.preventDefault(); tell("switch", { to: a.dataset.switch }); } });
+    });
+    document.getElementById("again").onclick = function () { answers = {}; step = 0; START ? renderQ() : renderIntro(); };
+    window.scrollTo(0, 0);
+  }
+
+  if (START) renderQ(); else renderIntro();
+})();
+
+</script>
+</body>
+</html>

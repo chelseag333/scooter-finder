@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wheelchair Finder | Chelsea's Rentals</title>
+<meta name="description" content="Answer a few quick questions to find the right manual or electric wheelchair to hire in Central London.">
+<meta name="theme-color" content="#2D235C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<style>
+:root{
+  --ink:#1d1838; --muted:#5d5878; --brand:#2D235C; --brand-2:#43368a;
+  --soft:#f3f1fa; --line:#e3dff0; --card:#fff; --bg:#faf9fd;
+  --accent:#e85d75; --ok:#1f7a53; --warn:#9a5b00; --warn-bg:#fff5e5;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.45}
+body.embedded{background:var(--card)}
+a{color:var(--brand)}
+button{font:inherit;color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 32px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--brand);font-weight:700;font-size:15px}
+.brand img{height:34px;width:auto}
+.close{border:0;background:var(--soft);width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none}
+.close:hover{background:var(--line)}
+.close svg{width:18px;height:18px}
+.back-site{font-size:14px;color:var(--muted);text-decoration:none}
+.back-site:hover{color:var(--brand)}
+body.embedded .back-site{display:none}
+body:not(.embedded) .close{display:none}
+body.embedded .top{position:sticky;top:0;z-index:5;background:var(--card);margin:-20px -16px 18px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.brand img{max-width:180px}
+
+.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.progress span{display:block;height:100%;background:var(--brand);width:0;transition:width .3s ease}
+.step-label{font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between}
+
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;color:var(--brand);margin:0}
+h1{font-size:clamp(26px,6vw,34px);line-height:1.15}
+h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
+.lede{color:var(--muted);margin:10px 0 22px;font-size:16px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+.opt:hover{border-color:var(--brand-2);background:var(--soft)}
+.opt:active{transform:scale(.995)}
+.opt:focus-visible{outline:3px solid #b8aef0;outline-offset:2px}
+.opt.sel{border-color:var(--brand);background:var(--soft)}
+.opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px}
+.opt.sel .ic{background:#fff}
+.opt b{display:block;font-weight:600;font-size:16px}
+.opt small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;min-height:40px}
+.link-btn{background:none;border:0;color:var(--muted);cursor:pointer;padding:8px 0;font-size:15px}
+.link-btn:hover{color:var(--brand)}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:14px 22px;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer}
+.primary:hover{background:var(--brand-2)}
+.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand);border:1.5px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer}
+.secondary:hover{border-color:var(--brand)}
+
+.intro-points{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+.intro-points li{display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.intro-points li::before{content:"✓";color:var(--ok);font-weight:700}
+
+.result-top{background:var(--brand);color:#fff;border-radius:var(--radius);padding:22px 20px;margin-bottom:14px}
+.result-top .eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.8;font-weight:600}
+.result-top h2{color:#fff;font-size:clamp(24px,6vw,30px);margin:6px 0 4px}
+.result-top .best{opacity:.9;font-size:15px}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 18px}
+.spec{background:rgba(255,255,255,.12);border-radius:12px;padding:10px}
+.spec small{display:block;font-size:12px;opacity:.8}
+.spec b{font-size:14.5px;font-weight:600}
+.result-top .primary{background:#fff;color:var(--brand);width:100%}
+.result-top .primary:hover{background:var(--soft)}
+.why{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px}
+.why h3,.alts h3{font-size:15px;margin:0 0 10px;color:var(--brand)}
+.why ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:14px}
+.alts{margin-bottom:16px}
+.alt{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
+.alt:hover{border-color:var(--brand-2)}
+.alt b{display:block;font-size:15px}
+.alt small{color:var(--muted);font-size:13px}
+.alt .arrow{color:var(--brand);font-weight:700;flex:none}
+.cross{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1.5px dashed var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
+.cross p{margin:0;font-size:14.5px;flex:1 1 220px}
+.help{background:var(--soft);border-radius:var(--radius);padding:16px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.help p{margin:0;font-size:14.5px;flex:1 1 220px}
+.wa{background:#1f8f4e;color:#fff;border:0}
+.wa:hover{background:#177a41}
+.answers{font-size:13.5px;color:var(--muted);margin:16px 0 0}
+.answers summary{cursor:pointer}
+.answers ul{padding-left:18px}
+.fade{animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:420px){.specs{grid-template-columns:1fr 1fr}.spec:last-child{grid-column:span 2}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="https://chelseas-rentals.com/" target="_top">
+      <img src="https://content.booqablecdn.com/uploads/41ef1003c136793071aa08151a652d61/company/logo/23a5f7fc-0284-419c-b094-61d1be3204ab/8dd8ead0-0c98-44b1-a37e-630121f3c322(2).png" alt="Chelsea's Rentals">
+    </a>
+    <a class="back-site" href="https://chelseas-rentals.com/pages/wheelchair-hire-central-london">← Back to Chelsea's Rentals</a>
+    <button class="close" type="button" aria-label="Close wheelchair finder" data-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <main id="app" aria-live="polite"></main>
+</div>
+<script>
+/* Chelsea's Rentals – Wheelchair Finder (manual and electric)
+   Data source: chelseas-rentals.com product pages and wheelchair guides (October 2026).
+   To change the fleet, edit P. To change the logic, edit decide(). */
+(function () {
+  var P = {
+    STD: { id: "STD", name: "Standard Self-Propelled Wheelchair", url: "/products/self-propelled-wheelchair",
+      best: "Good-value sightseeing and longer stays", kg: 115,
+      specs: [["Max user weight", "115 kg (18 st)"], ["Chair weight", "18 kg"], ["Pushed by", "You or a companion"]] },
+    PSP: { id: "PSP", name: "Premium Self-Propelled Wheelchair", url: "/products/premium-self-propelled-wheelchair",
+      best: "Extra comfort, and users up to 130 kg", kg: 130,
+      specs: [["Max user weight", "130 kg (20 st)"], ["Chair weight", "17 kg (15 kg without footrests)"], ["Folded width", "29 cm"]] },
+    PCH: { id: "PCH", name: "Premium Chrome Self-Propelled Wheelchair", url: "/products/premium-chrome-self-propelled-wheelchair",
+      best: "Easy side transfers, with removable armrests", kg: 115,
+      specs: [["Max user weight", "115 kg (18 st)"], ["Armrests", "Padded, swing-away and removable"], ["Tyres", "Puncture-proof"]] },
+    ATT: { id: "ATT", name: "Premium Attendant-Assisted Wheelchair", url: "/products/premium-attendent-assisted-wheelchair",
+      best: "Days out with a companion pushing", kg: 115,
+      specs: [["Pushed by", "A companion"], ["Frame", "Ultra-lightweight"], ["Brakes", "On the handles"]] },
+    D10: { id: "D10", name: "Easwe D10 Electric Wheelchair", url: "/products/lightweight-electric-wheelchair",
+      best: "Everyday sightseeing, and the best choice with a carer", kg: 113,
+      specs: [["Max user weight", "113 kg (250 lb)"], ["Range", "15–30 mi"], ["Chair weight", "15.9 kg without battery"]] },
+    F10: { id: "F10", name: "Easwe F10 Auto-Folding Electric Wheelchair", url: "/products/auto-folding-lightweight-f10-electric-wheelchair-with-15-mile-battery-range",
+      best: "Folds itself at the press of a button", kg: 100,
+      specs: [["Max user weight", "100 kg (220 lb)"], ["Range", "15–30 mi"], ["Chair weight", "18.6 kg without battery"]] }
+  };
+
+  var questions = [
+    { id: "mode", short: "How it moves", title: "How would you like to get around?", hint: "Pick the closest. You can change your answers at the end.",
+      options: [
+        { v: "self", ic: "💪", t: "I'll push myself", s: "Large rear wheels, and handles so a companion can help" },
+        { v: "pushed", ic: "🤝", t: "A companion will push me", s: "Lighter chair with smaller wheels" },
+        { v: "electric", ic: "🔋", t: "I'd like a powered chair", s: "Joystick control, folds for taxis" },
+        { v: "unsure", ic: "🤔", t: "Not sure, help me decide" }
+      ] },
+    { id: "companion", short: "Companion", title: "Will someone be with you who can push?", showIf: function (a) { return a.mode === "unsure"; },
+      options: [
+        { v: "yes", ic: "👥", t: "Yes, most of the time" },
+        { v: "no", ic: "🙋", t: "No, I'll mostly be on my own" }
+      ] },
+    { id: "kg", short: "User's weight", title: "How much does the user weigh?", hint: "Every chair has a maximum user weight. If you're between bands, choose the higher one.",
+      options: [
+        { v: 100, ic: "🟢", t: "Up to 100 kg", s: "Up to 220 lb / 15.7 st" },
+        { v: 113, ic: "🟢", t: "100 to 113 kg", s: "Up to 250 lb / 17.8 st" },
+        { v: 115, ic: "🟡", t: "113 to 115 kg", s: "Up to 254 lb / 18 st" },
+        { v: 130, ic: "🟠", t: "115 to 130 kg", s: "Up to 287 lb / 20 st" },
+        { v: 999, ic: "🔴", t: "Over 130 kg", s: "Over 287 lb / 20 st" }
+      ] },
+    { id: "days", short: "Each day", title: "How far will you go each day?",
+      options: [
+        { v: "short", ic: "🏨", t: "Short trips", s: "Hotel, restaurants, a hospital or a show" },
+        { v: "full", ic: "🗺️", t: "Full days of sightseeing", s: "Parks, museums and long London pavements" }
+      ] },
+    { id: "pri", short: "Most important", title: "What matters most to you?", showIf: function (a) { return a.mode === "self"; },
+      options: [
+        { v: "value", ic: "💷", t: "Good value", s: "A sturdy, no-fuss chair" },
+        { v: "comfort", ic: "🛋️", t: "Extra comfort", s: "A premium chair with a superior feel" },
+        { v: "transfer", ic: "↔️", t: "Easy transfers", s: "Armrests that swing away or come off" }
+      ] },
+    { id: "ctrl", short: "Folding and steering", title: "Which of these sounds like you?", showIf: function (a) { return a.mode === "electric" || (a.mode === "unsure" && a.days === "full"); },
+      options: [
+        { v: "self", ic: "🙂", t: "I'll drive it and can fold it myself" },
+        { v: "carer", ic: "🎮", t: "A companion will steer it some of the time", s: "A handheld remote lets them drive it" },
+        { v: "nofold", ic: "✋", t: "I can't fold a chair myself", s: "Some chairs fold at the press of a button" }
+      ] }
+  ];
+
+  function fits(p, kg) { return kg <= p.kg; }
+
+  function decide(a) {
+    var kg = a.kg, why = [], note = "", main = null, alts = [], cross = null;
+    var mode = a.mode;
+    if (mode === "unsure") mode = a.days === "full" && kg <= 113 ? "electric" : (a.companion === "yes" ? "pushed" : "self");
+
+    if (kg > 130) {
+      return { main: null, noneTitle: "We'll find the right option with you", noneText: "Our wheelchairs take users up to 130 kg. Our heavy-duty mobility scooters take more weight, or message us and we'll help.",
+        why: [], alts: [], cross: { tool: "scooter", text: "Our heavyweight scooters take users over 130 kg.", label: "Find my scooter" } };
+    }
+
+    if (mode === "electric") {
+      if (kg > 113) {
+        main = P.PSP;
+        note = "Our electric wheelchairs take users up to 113 kg, so we've suggested our strongest manual chair, which a companion can push. A heavyweight mobility scooter is another powered option.";
+        why.push("Takes users up to 130 kg (20 stone)", "Can be pushed by a companion or self-propelled");
+        cross = { tool: "scooter", text: "Prefer to drive yourself? Our heavyweight scooters take more weight.", label: "Find my scooter" };
+      } else if (a.ctrl === "nofold" && kg <= 100) {
+        main = P.F10;
+        why.push("Folds and unfolds itself at the press of a button", "Takes users up to 100 kg", "Folds to fit in the boot of an Uber or black cab");
+        alts.push({ p: P.D10, why: "Lighter to lift, and a companion can steer it with the optional remote" });
+      } else {
+        main = P.D10;
+        if (a.ctrl === "carer") why.push("Add the optional handheld Bluetooth remote so a companion can steer it all day");
+        if (a.ctrl === "nofold") note = "The self-folding F10 takes users up to 100 kg, so we've suggested the D10. Our team will show you how to fold it, and our driver can help.";
+        why.push("Lightest of our electric chairs to lift: 15.9 kg without the battery", "Up to 15–30 miles per charge, enough for a full day", "Folds to fit in the boot of an Uber or black cab");
+        if (kg <= 100 && a.ctrl !== "nofold") alts.push({ p: P.F10, why: "Folds itself at the press of a button (up to 100 kg)" });
+      }
+      if (!cross) cross = { tool: "scooter", text: "Covering long distances outdoors? A mobility scooter gives you a higher, more upright seat.", label: "Find my scooter" };
+      alts.push({ p: kg <= 115 ? P.ATT : P.PSP, why: "A manual chair for when a companion is pushing" });
+    } else if (mode === "pushed") {
+      if (kg <= 115) {
+        main = P.ATT;
+        why.push("Designed to be pushed by a companion, with brakes on the handles", "Smaller wheels make it lighter and fold smaller for taxis and car boots", "Our most popular choice for sightseeing");
+        alts.push({ p: P.STD, why: "Large rear wheels so the user can also push themselves" });
+      } else {
+        main = P.PSP;
+        note = "For users over 115 kg we recommend our premium self-propelled chair. It has handles, so a companion can push it too.";
+        why.push("Takes users up to 130 kg (20 stone)", "Handles for a companion, plus large wheels for self-propelling");
+      }
+      if (a.days === "full" && kg <= 113) alts.push({ p: P.D10, why: "Electric: no pushing needed on long sightseeing days" });
+    } else {
+      if (kg > 115) { main = P.PSP; why.push("Takes users up to 130 kg (20 stone)"); }
+      else if (a.pri === "transfer") { main = P.PCH; why.push("Padded armrests that swing away or come off for side transfers", "Puncture-proof tyres"); }
+      else if (a.pri === "comfort") { main = P.PSP; why.push("Our premium chair, with a superior feel"); }
+      else { main = P.STD; why.push("A sturdy, reliable, good-value chair"); }
+      why.push("Large rear wheels so you can push yourself, and handles so a companion can help", "Folds to fit in a London black cab");
+      if (main !== P.PSP) alts.push({ p: P.PSP, why: "More comfort, and takes users up to 130 kg" });
+      if (main !== P.PCH && kg <= 115) alts.push({ p: P.PCH, why: "Removable armrests for easy transfers" });
+      if (a.days === "full" && kg <= 113) {
+        note = "Pushing yourself all day on London pavements is tiring. If you'll be out from morning to evening, an electric wheelchair may suit you better.";
+        alts.unshift({ p: P.D10, why: "Electric, with 15–30 miles per charge" });
+      }
+    }
+    alts = alts.filter(function (x, i, arr) { return x.p !== main && arr.findIndex(function (y) { return y.p === x.p; }) === i; }).slice(0, 2);
+    return { main: main, why: why, note: note, alts: alts, cross: cross };
+  }
+
+  window.FINDER = {
+    tool: "wheelchair",
+    title: "Which wheelchair should I hire?",
+    intro: "Answer up to five quick questions and we'll match you to the right manual or electric wheelchair from our Central London showroom.",
+    points: ["Covers manual and electric wheelchairs", "Takes about a minute", "Delivered to your hotel, Airbnb or home, often within the hour"],
+    questions: questions,
+    decide: decide,
+    guideUrl: "https://chelseas-rentals.com/pages/wheelchair-hire-central-london",
+    whatsappText: "Hi, I used your wheelchair finder and would like some help choosing a wheelchair."
+  };
+})();
+
+</script>
+<script>
+/* Shared finder engine. Each page defines window.FINDER = { tool, title, intro, points, questions, decide, products, guideUrl, whatsappText } */
+(function () {
+  var F = window.FINDER;
+  var SITE = "https://chelseas-rentals.com";
+  var params = new URLSearchParams(location.search);
+  var EMBED = params.get("embed") === "1" || window.self !== window.top;
+  var START = params.get("start") === "1";
+  var app = document.getElementById("app");
+  var WHATSAPP = "https://wa.me/447880152221?text=" + encodeURIComponent(F.whatsappText);
+  if (EMBED) document.body.classList.add("embedded");
+
+  var answers = {}, step = 0;
+
+  function trs() { return EMBED ? ' target="_top"' : ''; }
+  function tell(type, data) {
+    if (!EMBED) return;
+    try { parent.postMessage(Object.assign({ source: "cr-finder", tool: F.tool, type: type }, data || {}), "*"); } catch (e) {}
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function visible() { return F.questions.filter(function (q) { return !q.showIf || q.showIf(answers); }); }
+
+  document.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", function () { tell("close"); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") tell("close"); });
+
+  function renderIntro() {
+    app.innerHTML =
+      '<div class="fade"><h1>' + esc(F.title) + '</h1>' +
+      '<p class="lede">' + esc(F.intro) + '</p>' +
+      '<ul class="intro-points">' + F.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + '</ul>' +
+      '<button class="primary" type="button" id="go">Start</button></div>';
+    document.getElementById("go").onclick = function () { step = 0; renderQ(); };
+  }
+
+  function renderQ() {
+    var qs = visible();
+    if (step >= qs.length) return renderResult();
+    var q = qs[step];
+    var pct = Math.round((step / qs.length) * 100);
+    app.innerHTML =
+      '<div class="fade"><div class="progress"><span style="width:' + pct + '%"></span></div>' +
+      '<div class="step-label"><span>Question ' + (step + 1) + ' of ' + qs.length + '</span></div>' +
+      '<h2>' + esc(q.title) + '</h2>' + (q.hint ? '<p class="hint">' + esc(q.hint) + '</p>' : '') +
+      '<div class="opts" role="list">' + q.options.map(function (o, i) {
+        return '<button type="button" class="opt' + (answers[q.id] === o.v ? ' sel' : '') + '" data-i="' + i + '">' +
+          '<span class="ic" aria-hidden="true">' + o.ic + '</span><span><b>' + esc(o.t) + '</b>' + (o.s ? '<small>' + esc(o.s) + '</small>' : '') + '</span></button>';
+      }).join("") + '</div>' +
+      '<div class="nav">' + (step > 0 || !START ? '<button type="button" class="link-btn" id="back">← Back</button>' : '<span></span>') + '<span></span></div></div>';
+    app.querySelectorAll(".opt").forEach(function (b) {
+      b.onclick = function () {
+        answers[q.id] = q.options[+b.dataset.i].v;
+        // drop answers to questions that no longer apply
+        F.questions.forEach(function (x) { if (x.showIf && !x.showIf(answers)) delete answers[x.id]; });
+        step++; renderQ();
+      };
+    });
+    var back = document.getElementById("back");
+    if (back) back.onclick = function () { if (step === 0) renderIntro(); else { step--; renderQ(); } };
+    var first = app.querySelector(".opt"); if (first && step > 0) first.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }
+
+  function specs(p) {
+    return '<div class="specs">' + p.specs.map(function (s) { return '<div class="spec"><small>' + esc(s[0]) + '</small><b>' + esc(s[1]) + '</b></div>'; }).join("") + '</div>';
+  }
+
+  function crossLink(c) {
+    var href = SITE + "/#find-my-" + c.tool;
+    return '<div class="cross"><p>' + esc(c.text) + '</p><a class="secondary" href="' + href + '" data-switch="' + c.tool + '"' + trs() + '>' + esc(c.label) + ' →</a></div>';
+  }
+
+  function renderResult() {
+    var r = F.decide(answers);
+    var p = r.main;
+    tell("result", { product: p ? p.id : "none", exact: !r.note });
+    var html = '<div class="fade">';
+    if (p) {
+      html += '<div class="result-top"><div class="eyebrow">Our recommendation</div><h2>' + esc(p.name) + '</h2>' +
+        '<div class="best">Best for: ' + esc(p.best) + '</div>' + specs(p) +
+        '<a class="primary" data-book="' + p.id + '" href="' + SITE + p.url + '"' + trs() + '>See prices and book</a></div>';
+    } else {
+      html += '<div class="result-top"><div class="eyebrow">Let\'s talk</div><h2>' + esc(r.noneTitle) + '</h2><div class="best">' + esc(r.noneText) + '</div><div style="height:16px"></div>' +
+        '<a class="primary" href="' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp us</a></div>';
+    }
+    if (r.note) html += '<div class="note">' + esc(r.note) + '</div>';
+    if (r.why && r.why.length) html += '<div class="why"><h3>Why this one</h3><ul>' + r.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join("") + '</ul></div>';
+    if (r.alts && r.alts.length) {
+      html += '<div class="alts"><h3>Also worth a look</h3>' + r.alts.map(function (a) {
+        return '<a class="alt" data-book="' + a.p.id + '" href="' + SITE + a.p.url + '"' + trs() + '><span><b>' + esc(a.p.name) + '</b><small>' + esc(a.why) + '</small></span><span class="arrow">→</span></a>';
+      }).join("") + '</div>';
+    }
+    if (r.cross) html += crossLink(r.cross);
+    html += '<div class="help"><p>Still not sure? We\'re happy to help you choose. Call, text or WhatsApp +44 7880 152221.</p>' +
+      '<a class="secondary wa" href="' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp us</a></div>';
+    html += '<div class="nav"><button type="button" class="link-btn" id="again">↺ Start again</button>' +
+      '<a class="link-btn" href="' + F.guideUrl + '"' + trs() + '>Read the full guide</a></div>';
+    html += '<details class="answers"><summary>Your answers</summary><ul>' + visible().map(function (q) {
+      var o = q.options.filter(function (x) { return x.v === answers[q.id]; })[0];
+      return o ? '<li>' + esc(q.short || q.title) + ': ' + esc(o.t) + '</li>' : '';
+    }).join("") + '</ul></details></div>';
+    app.innerHTML = html;
+    app.querySelectorAll("[data-book]").forEach(function (a) { a.addEventListener("click", function () { tell("book", { product: a.dataset.book }); }); });
+    app.querySelectorAll("[data-switch]").forEach(function (a) {
+      a.addEventListener("click", function (e) { if (EMBED) { e.preventDefault(); tell("switch", { to: a.dataset.switch }); } });
+    });
+    document.getElementById("again").onclick = function () { answers = {}; step = 0; START ? renderQ() : renderIntro(); };
+    window.scrollTo(0, 0);
+  }
+
+  if (START) renderQ(); else renderIntro();
+})();
+
+</script>
+</body>
+</html>
