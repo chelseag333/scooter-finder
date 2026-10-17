@@ -7,17 +7,17 @@
 <meta name="description" content="Answer a few quick questions to find the right manual or electric wheelchair to hire in Central London.">
 <meta name="theme-color" content="#2D235C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --ink:#1d1838; --muted:#5d5878; --brand:#2D235C; --brand-2:#43368a;
-  --soft:#f3f1fa; --line:#e3dff0; --card:#fff; --bg:#faf9fd;
+  --soft:#f3f1fa; --line:#e3dff0; --card:#fff; --bg:#fff;
   --accent:#e85d75; --ok:#1f7a53; --warn:#9a5b00; --warn-bg:#fff5e5;
-  --radius:16px;
+  --radius:8px;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.45}
+body{font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.45}
 body.embedded{background:var(--card)}
 a{color:var(--brand)}
 button{font:inherit;color:inherit}
@@ -39,19 +39,19 @@ body.embedded .top{position:sticky;top:0;z-index:5;background:var(--card);margin
 .progress span{display:block;height:100%;background:var(--brand);width:0;transition:width .3s ease}
 .step-label{font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;justify-content:space-between}
 
-h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;color:var(--brand);margin:0}
-h1{font-size:clamp(26px,6vw,34px);line-height:1.15}
-h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
+h1,h2{font-family:inherit;font-weight:700;letter-spacing:normal;color:var(--brand);margin:0}
+h1{font-size:clamp(24px,6vw,32px);line-height:1.2}
+h2{font-size:clamp(20px,5vw,24px);line-height:1.25;margin-bottom:6px}
 .lede{color:var(--muted);margin:10px 0 22px;font-size:16px}
 .hint{color:var(--muted);font-size:14px;margin:0 0 16px}
 
 .opts{display:grid;gap:10px}
-.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
 .opt:hover{border-color:var(--brand-2);background:var(--soft)}
 .opt:active{transform:scale(.995)}
 .opt:focus-visible{outline:3px solid #b8aef0;outline-offset:2px}
 .opt.sel{border-color:var(--brand);background:var(--soft)}
-.opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px}
+.opt .ic{flex:none;width:40px;height:40px;border-radius:8px;background:var(--soft);display:grid;place-items:center;font-size:20px;font-weight:700;color:var(--brand)}
 .opt.sel .ic{background:#fff}
 .opt b{display:block;font-weight:600;font-size:16px}
 .opt small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
@@ -59,9 +59,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
 .nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;min-height:40px}
 .link-btn{background:none;border:0;color:var(--muted);cursor:pointer;padding:8px 0;font-size:15px}
 .link-btn:hover{color:var(--brand)}
-.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:14px 22px;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:8px;padding:14px 22px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer}
 .primary:hover{background:var(--brand-2)}
-.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand);border:1.5px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer}
+.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:var(--brand);border:1.5px solid var(--line);border-radius:8px;padding:12px 18px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer}
 .secondary:hover{border-color:var(--brand)}
 
 .intro-points{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
@@ -73,7 +73,7 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
 .result-top h2{color:#fff;font-size:clamp(24px,6vw,30px);margin:6px 0 4px}
 .result-top .best{opacity:.9;font-size:15px}
 .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 18px}
-.spec{background:rgba(255,255,255,.12);border-radius:12px;padding:10px}
+.spec{background:rgba(255,255,255,.12);border-radius:8px;padding:10px}
 .spec small{display:block;font-size:12px;opacity:.8}
 .spec b{font-size:14.5px;font-weight:600}
 .result-top .primary{background:#fff;color:var(--brand);width:100%}
@@ -81,9 +81,9 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
 .why{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px}
 .why h3,.alts h3{font-size:15px;margin:0 0 10px;color:var(--brand)}
 .why ul{margin:0;padding-left:20px;display:grid;gap:6px}
-.note{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:14px}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:12px 14px;font-size:14.5px;margin-bottom:14px}
 .alts{margin-bottom:16px}
-.alt{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
+.alt{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;text-decoration:none;color:var(--ink)}
 .alt:hover{border-color:var(--brand-2)}
 .alt b{display:block;font-size:15px}
 .alt small{color:var(--muted);font-size:13px}
@@ -101,13 +101,14 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (max-width:420px){.specs{grid-template-columns:1fr 1fr}.spec:last-child{grid-column:span 2}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+h1,h2,h3,b,.opt b{overflow-wrap:normal;word-break:normal;hyphens:manual}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <a class="brand" href="https://chelseas-rentals.com/" target="_top">
-      <img src="https://content.booqablecdn.com/uploads/41ef1003c136793071aa08151a652d61/company/logo/23a5f7fc-0284-419c-b094-61d1be3204ab/8dd8ead0-0c98-44b1-a37e-630121f3c322(2).png" alt="Chelsea's Rentals">
+      <img src="https://images.booqablecdn.com/assets/a3fa19cb-4ccf-48bc-b8f0-1057ed3576f0/cmm4s2o7a00g33b7xutbmw4dk(2).Screenshot20260227at10.56.47-7d974278d2a932a23430c80e9e9481d5bd91f8038d5bf05f045a35454d6839ec.png" alt="Chelsea's Rentals">
     </a>
     <a class="back-site" href="https://chelseas-rentals.com/pages/wheelchair-hire-central-london">← Back to Chelsea's Rentals</a>
     <button class="close" type="button" aria-label="Close wheelchair finder" data-close>
@@ -274,6 +275,14 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
     try { parent.postMessage(Object.assign({ source: "cr-finder", tool: F.tool, type: type }, data || {}), "*"); } catch (e) {}
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  // Longest number of questions still to answer from this point, so "Question X of Y" is honest.
+  function longest(a) {
+    var q = F.questions.filter(function (x) { return (!x.showIf || x.showIf(a)) && !(x.id in a); })[0];
+    if (!q) return 0;
+    var best = 0;
+    q.options.forEach(function (o) { var b = Object.assign({}, a); b[q.id] = o.v; best = Math.max(best, longest(b)); });
+    return 1 + best;
+  }
   function visible() { return F.questions.filter(function (q) { return !q.showIf || q.showIf(answers); }); }
 
   document.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", function () { tell("close"); }); });
@@ -292,10 +301,11 @@ h2{font-size:clamp(21px,5vw,26px);line-height:1.2;margin-bottom:6px}
     var qs = visible();
     if (step >= qs.length) return renderResult();
     var q = qs[step];
-    var pct = Math.round((step / qs.length) * 100);
+    var total = step + longest(answers);
+    var pct = Math.round((step / total) * 100);
     app.innerHTML =
       '<div class="fade"><div class="progress"><span style="width:' + pct + '%"></span></div>' +
-      '<div class="step-label"><span>Question ' + (step + 1) + ' of ' + qs.length + '</span></div>' +
+      '<div class="step-label"><span>Question ' + (step + 1) + ' of ' + total + '</span></div>' +
       '<h2>' + esc(q.title) + '</h2>' + (q.hint ? '<p class="hint">' + esc(q.hint) + '</p>' : '') +
       '<div class="opts" role="list">' + q.options.map(function (o, i) {
         return '<button type="button" class="opt' + (answers[q.id] === o.v ? ' sel' : '') + '" data-i="' + i + '">' +
