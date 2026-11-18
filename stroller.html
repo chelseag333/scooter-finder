@@ -124,13 +124,21 @@ h1,h2,h3,b,.opt b{overflow-wrap:normal;word-break:normal;hyphens:manual}
 (function () {
   var P = {
     ARIES: { id: "ARIES", name: "Ickle Bubba Aries", url: "/products/ickle-bubba-aries-stroller", kg: 22,
-      best: "The lightest stroller we rent, with a big seat for toddlers",
+      best: "A light stroller with a big seat for toddlers",
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.1 kg"], ["Fold", "Automatic, locks shut"]],
       tags: { light: 3, fold: 2, tube: 3, toddler: 2, cab: 2 } },
+    AERPLUS: { id:"AERPLUS", name:"Joolz AER+", url:"/products/joolz-aer-stroller", kg:22,
+      best:"The lightest stroller we hire, from 6 months",
+      specs:[["Child weight","6 months to 22 kg"],["Stroller weight","5 kg"],["Fold","One hand, one second"]],
+      tags:{ light:3, fold:3, tube:3, cab:2, newborn:-5 } },
+    FAME: { id:"FAME", name:"Maxi-Cosi Fame Cabin Stroller", url:"/products/maxi-cosi-fame-cabin-stroller", kg:22,
+      best:"Cabin-size fold with full lie-flat comfort from birth",
+      specs:[["Child weight","Birth to 22 kg"],["Stroller weight","8.2 kg"],["Fold","One hand, free-standing"]],
+      tags:{ fold:3, tube:2, cab:2, newborn:2, nap:2, light:1 } },
     JOOLZ: { id: "JOOLZ", name: "Joolz Aer2", url: "/products/joolz-aer-2-stroller", kg: 22,
       best: "Luxury ultra-compact fold, easy to steer with one hand",
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "6.5 kg"], ["Fold", "One hand, one second"]],
-      tags: { light: 2, fold: 3, tube: 3, cab: 2, newborn: 1 } },
+      tags: { light: 2, fold: 3, tube: 3, cab: 2, newborn: 3 } },
     LAIKA: { id: "LAIKA", name: "Maxi-Cosi Laika2", url: "/products/maxi-cosi-laika2-stroller", kg: 22,
       best: "Buses, the Tube and stairs, comfortable from birth",
       specs: [["Child weight", "Birth to 22 kg"], ["Stroller weight", "7.45 kg"], ["Fold", "One hand, with shoulder strap"]],
@@ -168,7 +176,7 @@ h1,h2,h3,b,.opt b{overflow-wrap:normal;word-break:normal;hyphens:manual}
       best: "Up to four children, or bigger children who are too heavy for a stroller",
       specs: [["Children", "Up to 4, from 6 months"], ["Per bench", "Up to 45 kg (2 benches)"], ["Total load", "Up to 97 kg"]] }
   };
-  var SINGLES = ["ARIES", "JOOLZ", "LAIKA", "LARA", "APINO", "GRANDE", "COSATTO", "INDY"];
+  var SINGLES = ["AERPLUS","FAME","ARIES", "JOOLZ", "LAIKA", "LARA", "APINO", "GRANDE", "COSATTO", "INDY"];
 
   var questions = [
     { id: "kids", short: "Children", title: "How many children will ride?",
