@@ -411,5 +411,53 @@ document.addEventListener("keydown",function(e){ if (e.key==="Escape") tell("clo
 if (/[?&]start=1/.test(location.search)) step = 0;
 render();
 </script>
+<script>
+/* Live availability note under each product link. Reads Booqable through the public
+   storefront API on chelseas-rentals.com. Advisory only: it never changes what is recommended. */
+(function(){
+  var API="https://chelseas-rentals.com";
+  var LOC="b9be3e03-600a-49b5-9d5c-5d3a345a458b";
+  var ids=null, got={}, busy={};
+  function win(){var a=new Date();a.setDate(a.getDate()+1);a.setHours(9,0,0,0);
+    var b=new Date(a.getTime()+48*3600*1000);
+    return [a.toISOString().slice(0,19)+".000Z", b.toISOString().slice(0,19)+".000Z"];}
+  function getIds(){
+    if(ids) return Promise.resolve(ids);
+    return fetch(API+"/api/1/product_groups?per=100").then(function(r){return r.json()}).then(function(j){
+      var m={}; (j.product_groups||[]).forEach(function(g){ m[g.slug]=g.id });
+      if(Object.keys(m).length) ids=m;
+      return m;});}
+  function check(slug){
+    if(got.hasOwnProperty(slug)) return Promise.resolve(got[slug]);
+    if(busy[slug]) return busy[slug];
+    var w=win();
+    busy[slug]=getIds().then(function(m){
+      var id=m[slug]; if(!id) return null;
+      return fetch(API+"/api/boomerang/availabilities",{method:"POST",
+        headers:{"content-type":"application/vnd.api+json",accept:"application/vnd.api+json"},
+        body:JSON.stringify({filter:{location_id:LOC,from:w[0],till:w[1],item_id:[id]}})
+      }).then(function(r){return r.json()}).then(function(j){
+        var d=(j.data||[])[0];
+        return (d&&d.attributes&&typeof d.attributes.available==="number")?d.attributes.available:null;});
+    }).then(function(n){ if(n!==null&&n!==undefined) got[slug]=n; delete busy[slug]; return n; })
+      .catch(function(){ delete busy[slug]; return null; });
+    return busy[slug];}
+  function paint(a){
+    var m=(a.getAttribute("href")||"").match(/\/products\/([a-z0-9-]+)/); if(!m) return;
+    var nx=a.nextSibling; if(nx&&nx.className==="cr-avail") return;
+    check(m[1]).then(function(n){
+      if(n===null||n===undefined) return;
+      var sib=a.nextSibling; if(sib&&sib.className==="cr-avail") return;
+      var s=document.createElement("div"); s.className="cr-avail";
+      s.style.cssText="margin-top:6px;font-size:13px;line-height:1.4;opacity:.85";
+      s.textContent = n>0 ? "\u2713 Free for a 2-day hire from tomorrow"
+                          : "Booked out from tomorrow \u2014 message us about other dates";
+      if(a.parentNode) a.parentNode.insertBefore(s, a.nextSibling);});}
+  function scan(){ var as=document.querySelectorAll("a[href*='/products/']"); for(var i=0;i<as.length;i++) paint(as[i]); }
+  var t=null; function later(){ if(t) clearTimeout(t); t=setTimeout(scan,120); }
+  if(document.readyState!=="loading") later(); else document.addEventListener("DOMContentLoaded",later);
+  new MutationObserver(later).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
 </body>
 </html>
