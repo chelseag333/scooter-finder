@@ -305,7 +305,7 @@ var answers = {}, step = -1;
 function visibleQuestions(){ return QUESTIONS.filter(function(q){ return !q.show || q.show(answers); }); }
 function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 function linkAttrs(){ return EMBED ? ' target="_top"' : ''; }
-function tell(type,data){ try{ if(window.self===window.top&&typeof gtag==="function") gtag("event","scooter_finder_"+type, data||{}); }catch(e){} if (EMBED) try{ parent.postMessage(Object.assign({source:"cr-scooter-finder",type:type},data||{}),"*"); }catch(e){} }
+function tell(type,data){ try{ if(type!=="height"&&window.self===window.top&&typeof gtag==="function") gtag("event","scooter_finder_"+type, data||{}); }catch(e){} if (EMBED) try{ parent.postMessage(Object.assign({source:"cr-scooter-finder",type:type},data||{}),"*"); }catch(e){} }
 
 function renderIntro(){
   app.innerHTML =
