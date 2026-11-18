@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+(function(){ if (window.self !== window.top) return; var id="G-C1GM2EWNVR";
+  var s=document.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+id; document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[]; window.gtag=function(){window.dataLayer.push(arguments)};
+  gtag("js",new Date()); gtag("config",id);
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Scooter Finder | Chelsea's Rentals</title>
@@ -298,7 +305,7 @@ var answers = {}, step = -1;
 function visibleQuestions(){ return QUESTIONS.filter(function(q){ return !q.show || q.show(answers); }); }
 function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 function linkAttrs(){ return EMBED ? ' target="_top"' : ''; }
-function tell(type,data){ if (EMBED) try{ parent.postMessage(Object.assign({source:"cr-scooter-finder",type:type},data||{}),"*"); }catch(e){} }
+function tell(type,data){ try{ if(window.self===window.top&&typeof gtag==="function") gtag("event","scooter_finder_"+type, data||{}); }catch(e){} if (EMBED) try{ parent.postMessage(Object.assign({source:"cr-scooter-finder",type:type},data||{}),"*"); }catch(e){} }
 
 function renderIntro(){
   app.innerHTML =
