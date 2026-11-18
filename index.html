@@ -137,12 +137,12 @@ var SCOOTERS = [
   { id:"U30", name:"Ultralight 30-mile", url:SITE+"/products/ultralight-scooter-with-our-best-30-mile-49-km-battery-range",
     maxKg:120, maxLabel:"120 kg (265 lb)", range:"Up to 30 mi", weight:"20 kg (44 lb)",
     best:"Longest days of sightseeing", liftable:true, cab:true, boot:true, narrow:true },
-  { id:"L6",  name:"Lightweight 6-mile", url:SITE+"/products/lightweight-scooter-strider-st1",
-    maxKg:115, maxLabel:"115 kg (254 lb)", range:"6 mi", weight:"40 kg (88 lb), 5 pieces",
-    best:"Short trips, car boot", liftable:false, cab:false, boot:true, narrow:true },
   { id:"L75", name:"Lightweight 7.5-mile", url:SITE+"/products/lightweight-scooter-roma-virgo",
     maxKg:136, maxLabel:"136 kg (300 lb)", range:"7.5–10 mi", weight:"42 kg (93 lb), 4 pieces",
     best:"Short trips, users up to 136 kg", liftable:false, cab:false, boot:true, narrow:true },
+  { id:"EXP", name:"SuperHandy Explorer 16-mile", url:SITE+"/products/superhandy-explorer",
+    maxKg:160, maxLabel:"160 kg (353 lb)", folds:true, range:"Up to 16 mi", weight:"29 kg (64 lb), folds flat",
+    best:"Heavy-duty weight limit that still folds for a cab or boot", liftable:false, cab:false, boot:true, narrow:true },
   { id:"HC2", name:"Heavyweight Class 2 (4 mph)", url:SITE+"/products/heavyweight-scooter-pride-colt-twin",
     maxKg:159, maxLabel:"159 kg (351 lb)", range:"Up to 15.5 mi", weight:"62.5 kg (138 lb)*",
     best:"Comfort, extra legroom", liftable:false, cab:false, boot:false, narrow:false },
@@ -173,6 +173,7 @@ var QUESTIONS = [
     hint:"Even one or two steps matter. Heavy-duty scooters weigh 60 kg or more and can't be carried.",
     options:[
       { v:"steps",  ic:"🪜", label:"Yes, there are some steps", sub:"The scooter will need to be lifted" },
+        { v:"helplift", ic:"🤝", label:"One or two steps, with help", sub:"Someone can help lift up to about 30 kg" },
       { v:"small",  ic:"🛗", label:"Step-free, but the lift is small", sub:"Older buildings and compact hotel lifts" },
       { v:"free",   ic:"♿", label:"Step-free everywhere", sub:"Ramps, ground floor or roomy lifts" }
     ]},
@@ -220,15 +221,17 @@ function passes(s,a,keys){
 function candidates(a,keys){ return SCOOTERS.filter(function(s){ return passes(s,a,keys); }); }
 
 /* ---------- Ranking sequence: points per answer, highest wins, ties go to fleet order ---------- */
-var POINTS = {
+RULES.access = (function(orig){ return function(s,v){ return v==="helplift" ? (s.liftable || s.folds === true) : orig(s,v); }; })(RULES.access);
+
+  var POINTS = {
   distance:{
     short:{ SH:1 },
-    half: { UC:1, U30:1, L75:1, L6:-3 },
-    full: { U30:3, UC:1, H6:1, H20:2, SH:-2, L75:-4, L6:-5 }
+    half: { EXP:2, UC:1, U30:1, L75:1 },
+    full: { EXP:1, U30:3, UC:1, H6:1, H20:2, SH:-2, L75:-4 }
   },
   priority:{
     light:  { SH:3, UC:3, U30:2, HC2:-2, H6:-2, H8:-2, H20:-2 },
-    comfort:{ HC2:3, H6:3, H8:2, H20:2, L6:1, L75:1, SH:-1, UC:-1, U30:-1 },
+    comfort:{ EXP:2, HC2:3, H6:3, H8:2, H20:2, L75:1, SH:-1, UC:-1, U30:-1 },
     smooth: { H8:4, H20:3, H6:2 }
   },
   transport:{ train:{ SH:2 } },
@@ -272,10 +275,10 @@ function reasons(s,a){
   if (a.access==="small" && s.liftable) r.push("Compact and foldable, so it fits small lifts easily.");
   if (a.transport==="blackcab") r.push("Rides straight up a black cab's ramp, no folding needed.");
   if ((a.transport==="uber"||a.transport==="boot") && !s.boot) r.push("Please note: it doesn't fit in an Uber or car boot. A black cab with a ramp can take it.");
-  if (a.transport==="uber" && s.boot) r.push(s.liftable ? "Folds to fit an Uber or minicab boot." : "Comes apart into pieces to fit an Uber or minicab boot.");
+  if (a.transport==="uber" && s.boot) r.push((s.liftable||s.folds) ? "Folds to fit an Uber or minicab boot." : "Comes apart into pieces to fit an Uber or minicab boot.");
   if (a.transport==="train" && !s.cab) r.push("Please note: it's too heavy to carry on and off trains.");
   if (a.transport==="train" && s.cab) r.push(s.id==="SH" ? "Our lightest scooter, the easiest to carry on and off trains." : "Folds small enough to take on a train.");
-  if (a.transport==="boot" && s.boot) r.push(s.liftable ? "Folds to fit most car boots." : "Comes apart into pieces to fit a car boot.");
+  if (a.transport==="boot" && s.boot) r.push((s.liftable||s.folds) ? "Folds to fit most car boots." : "Comes apart into pieces to fit a car boot.");
   if (a.distance==="full") r.push("Range of " + s.range.replace(/^Up to/,"up to") + " for a full day out.");
   else if (a.distance==="half") r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", plenty for half a day.");
   else r.push("Range of " + s.range.replace(/^Up to/,"up to") + ", ideal for shorter trips.");
