@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+(function(){ if (window.self !== window.top) return; var id="G-C1GM2EWNVR";
+  var s=document.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtag/js?id="+id; document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[]; window.gtag=function(){window.dataLayer.push(arguments)};
+  gtag("js",new Date()); gtag("config",id);
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Stroller Finder | Chelsea's Rentals</title>
@@ -332,7 +339,7 @@ h1,h2,h3,b,.opt b{overflow-wrap:normal;word-break:normal;hyphens:manual}
   var answers = {}, step = 0;
 
   function trs() { return EMBED ? ' target="_top"' : ''; }
-  function tell(type, data) {
+  function tell(type, data) { try{ if(type!=="height"&&window.self===window.top&&typeof gtag==="function") gtag("event","stroller_finder_"+type, data||{}); }catch(e){}
     if (!EMBED) return;
     try { parent.postMessage(Object.assign({ source: "cr-finder", tool: F.tool, type: type }, data || {}), "*"); } catch (e) {}
   }
